@@ -1,0 +1,62 @@
+local mock_api = require("gamepush.mock_api")
+local utils = require("example.utils")
+
+local position
+local section_buttons = {}
+
+local function switch_section(section)
+    utils.delete_buttons(section_buttons)
+    section_buttons = section
+    utils.make_buttons(section, position)
+end
+
+local common = require("example.common")
+
+local buttons = {
+    { name = "Common features", callback = switch_section, section = common },
+    { name = "Application", callback = switch_section, section = require("example.app") },
+    { name = "Platform", callback = switch_section, section = require("example.platform") },
+    { name = "Player", callback = switch_section, section = require("example.player") },
+    { name = "Payments", callback = switch_section, section = require("example.payments") },
+    { name = "Leaderboard", callback = switch_section, section = require("example.leaderboard") },
+    { name = "Ads", callback = switch_section, section = require("example.ads") },
+    { name = "Achievements", callback = switch_section, section = require("example.achievements") },
+    { name = "Socials", callback = switch_section, section = require("example.socials") },
+    { name = "Variables", callback = switch_section, section = require("example.variables") },
+    { name = "Games collections", callback = switch_section, section = require("example.games_collections") },
+    { name = "Images", callback = switch_section, section = require("example.images") },
+    { name = "Files", callback = switch_section, section = require("example.files") },
+    { name = "Documents", callback = switch_section, section = require("example.documents") },
+    { name = "Analytics", callback = switch_section, section = require("example.analytics") },
+    { name = "Fullscreen", callback = switch_section, section = require("example.fullscreen") },
+    { name = "Native platform", callback = switch_section, section = require("example.native_platform") },
+}
+
+function init(self)
+    position = utils.make_buttons(buttons, vmath.vector3())
+    switch_section(common)
+
+    -- установка параметров "заглушек"
+    --mock_api.player.name = "my player name"
+    --mock_api.player.id = 625
+    mock_api.player = function()
+        return {
+            isLoggedIn = false,
+            hasAnyCredentials = false,
+            id = 234,
+            score = 500,
+            name = "player name",
+            avatar = "avatar",
+            isStub = true,
+            fields = mock_api.fields_data
+        }
+    end
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("touch") and action.pressed then
+        utils.handle_buttons(buttons, action.x, action.y)
+        utils.handle_buttons(section_buttons, action.x, action.y)
+    end
+end

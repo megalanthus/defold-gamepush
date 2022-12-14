@@ -1,0 +1,26 @@
+[bootstrap]
+main_collection = /example/main.collectionc
+
+[script]
+shared_state = 1
+
+[display]
+width = 1280
+height = 720
+high_dpi = 1
+
+[project]
+title = defold-gamepush
+publisher = Megalanthus
+developer = Megalanthus
+version = v1.0.0
+
+[library]
+include_dirs = gamepush
+
+[gamepush]
+id = your id
+token = your token
+description = There are not enough words to describe the awesomeness of the game
+image = /img/ogimage.png
+

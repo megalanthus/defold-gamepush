@@ -1,0 +1,36 @@
+<html>
+<head>
+    {{#project.title}}
+    <meta name="og:title" content="{{project.title}}">
+    {{/project.title}}
+    {{#gamepush.description}}
+    <meta name="description" content="{{gamepush.description}}">
+    <meta name="og:description" content="{{gamepush.description}}">
+    {{/gamepush.description}}
+    {{#gamepush.image}}
+    <meta name="og:image" content="{{gamepush.image}}">
+    {{/gamepush.image}}
+    <script async
+            src="https://gamepush.com/sdk/game-score.js?projectId={{gamepush.id}}&publicToken={{gamepush.token}}&callback=onGPInit"></script>
+    <script type="text/javascript">
+        window.onGPInit = (gp) => {
+            function init(gp, result) {
+                if (window.GamePushLib !== undefined && window.GamePushLib.init !== undefined) {
+                    window.GamePushLib.init(gp, result);
+                } else {
+                    window.GamePushInstance = gp;
+                    window.GamePushInit = result;
+                }
+            }
+
+            gp.player.ready.then(
+                function () {
+                    init(gp, true);
+                }).catch(
+                function () {
+                    init(gp, false);
+                });
+        }
+    </script>
+</head>
+</html>

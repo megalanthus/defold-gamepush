@@ -1,0 +1,18 @@
+# Change Log
+
+# [v1.0.0](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.0.0) (2022-12-13)
+
+**Added**
+
+- New features.
+
+**Changed**
+
+- Renamed plugin to gamepush.
+- Global change of function names.
+- Documentation.
+- GamePush logo.
+
+**Removed**
+
+- The json module has been removed, the system one is used instead.
