@@ -18,7 +18,7 @@ local function save_storage()
             data[key] = value
         end
     end
-    sys.save(get_storage_file_name(), M)
+    sys.save(get_storage_file_name(), data)
 end
 
 M.send = function(callback_id, message)
