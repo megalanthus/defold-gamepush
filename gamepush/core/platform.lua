@@ -16,25 +16,25 @@ M.POKI = "POKI"
 ---Тип платформы
 ---@return string
 function M.type()
-    return core.call_api("platform.type").value
+    return core.call_api("platform.type")
 end
 
 ---Возможность авторизации
 ---@return boolean
 function M.has_integrated_auth()
-    return core.call_api("platform.hasIntegratedAuth").value == true
+    return core.call_api("platform.hasIntegratedAuth") == true
 end
 
 ---Возможность размещать внешние ссылки
 ---@return boolean
 function M.is_external_links_allowed()
-    return core.call_api("platform.isExternalLinksAllowed").value == true
+    return core.call_api("platform.isExternalLinksAllowed") == true
 end
 
 ---Доступен секретный код авторизации
 ---@return string
 function M.is_secret_code_auth_available()
-    return core.call_api("platform.isSecretCodeAuthAvailable").value == true
+    return core.call_api("platform.isSecretCodeAuthAvailable") == true
 end
 
 ---Выполнить нативный метод платформы. Если method API является объектом.

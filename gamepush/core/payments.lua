@@ -6,7 +6,7 @@ local callbacks = require("gamepush.core.callbacks")
 ---Проверка поддержки платежей на платформе
 ---@return boolean результат
 function M.is_available()
-    return core.call_api("payments.isAvailable").value == true
+    return core.call_api("payments.isAvailable") == true
 end
 
 ---Покупка
@@ -32,7 +32,7 @@ end
 ---@return boolean результат
 function M.has(product)
     local parameters = helpers.make_parameters_id_or_tag(product, "Product")
-    return core.call_api("payments.has", parameters.id or parameters.tag).value
+    return core.call_api("payments.has", parameters.id or parameters.tag) == true
 end
 
 ---Получение списка продуктов
@@ -45,7 +45,7 @@ end
 ---Проверка поддержки подписки на платформе
 ---@return boolean результат
 function M.is_subscriptions_available()
-    return core.call_api("payments.isSubscriptionsAvailable").value == true
+    return core.call_api("payments.isSubscriptionsAvailable") == true
 end
 
 ---Подписка

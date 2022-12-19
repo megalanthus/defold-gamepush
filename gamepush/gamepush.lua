@@ -1,6 +1,6 @@
 local M = {}
 
-local version = "GamePush for Defold v1.0.0"
+local version = string.format("GamePush for Defold v1.0.1")
 local core = require("gamepush.core.core")
 local helpers = require("gamepush.core.helpers")
 local callbacks = require("gamepush.core.callbacks")
@@ -29,7 +29,7 @@ end
 ---Получить текущий язык
 ---@return string код языка в формате ISO 639-1
 function M.language()
-    return core.call_api("language").value
+    return core.call_api("language")
 end
 
 ---Установить язык
@@ -44,31 +44,31 @@ end
 ---В разработке?
 ---@return boolean
 function M.is_dev()
-    return core.call_api("isDev").value == true
+    return core.call_api("isDev") == true
 end
 
 ---Мобильное устройство?
 ---@return boolean
 function M.is_mobile()
-    return core.call_api("isMobile").value == true
+    return core.call_api("isMobile") == true
 end
 
 ---Хост игры в доверенных источниках?
 ---@return boolean
 function M.is_allowed_origin()
-    return core.call_api("isAllowedOrigin").value == true
+    return core.call_api("isAllowedOrigin") == true
 end
 
 ---Возвращает серверное время
 ---@return string
 function M.get_server_time()
-    return core.call_api("serverTime").value
+    return core.call_api("serverTime")
 end
 
 ---На паузе?
 ---@return boolean
 function M.is_paused()
-    return core.call_api("isPaused").value == true
+    return core.call_api("isPaused") == true
 end
 
 ---Поставить на паузу

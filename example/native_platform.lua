@@ -18,8 +18,8 @@ end
 
 local function yandex_set_leaderboard()
     gamepush.platform.call_native_sdk("lb=getLeaderboards", nil, function(leaderboards)
-        utils.to_log("Yandex set leaderboard 120 score:\n" .. utils.table_to_string(leaderboards))
-        gamepush.platform.call_native_sdk("lb:setLeaderboardScore", { "leaderboard2021", 120 })
+        utils.to_log("Yandex set leaderboard 200 score:\n" .. utils.table_to_string(leaderboards))
+        gamepush.platform.call_native_sdk("lb:setLeaderboardScore", { "leaderboard2021", 200 })
     end)
 end
 

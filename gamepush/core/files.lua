@@ -69,7 +69,7 @@ end
 ---Проверить возможность загрузки файлов
 ---@return boolean возможность загрузки файлов
 function M.can_upload()
-    return core.call_api("files.canUpload").value == true
+    return core.call_api("files.canUpload") == true
 end
 
 M.callbacks = callbacks.files

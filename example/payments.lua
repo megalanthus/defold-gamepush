@@ -47,6 +47,7 @@ local M = {
     { name = "Is available", callback = is_available },
     { name = "Purchase", callback = purchase },
     { name = "Consume", callback = consume },
+    { name = "Has", callback = has },
     { name = "Fetch products", callback = fetch_products },
     { name = "Is subscriptions available", callback = is_subscriptions_available },
     { name = "Subscribe", callback = subscribe },

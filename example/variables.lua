@@ -8,7 +8,11 @@ local function fetch()
 end
 
 local function get()
-    utils.to_log("variables get 'var': " .. tostring(gamepush.variables.get("var")))
+    local var = gamepush.variables.get("var")
+    if var == nil then
+        var = "nil"
+    end
+    utils.to_log("variables get 'var': " .. tostring(var))
 end
 
 local function has()

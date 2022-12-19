@@ -1,3 +1,4 @@
+local gamepush = require("gamepush.gamepush")
 local mock_api = require("gamepush.mock_api")
 local utils = require("example.utils")
 
@@ -37,20 +38,12 @@ function init(self)
     switch_section(common)
 
     -- установка параметров "заглушек"
-    --mock_api.player.name = "my player name"
-    --mock_api.player.id = 625
-    mock_api.player = function()
-        return {
-            isLoggedIn = false,
-            hasAnyCredentials = false,
-            id = 234,
-            score = 500,
-            name = "player name",
-            avatar = "avatar",
-            isStub = true,
-            fields = mock_api.fields_data
-        }
-    end
+    mock_api["player.id"] = 234
+    mock_api["player.score"] = 500
+    mock_api["player.name"] = "player name"
+    mock_api["player.avatar"] = "avatar"
+
+    utils.to_console(gamepush.get_plugin_version())
     msg.post(".", "acquire_input_focus")
 end
 

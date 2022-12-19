@@ -57,13 +57,13 @@ function M.resize(uri, width, height, crop)
     helpers.check_number_value(width, "width", true)
     helpers.check_number_value(height, "height", true)
     helpers.check_boolean(crop, "crop", true)
-    return core.call_api("images.resize", { uri, width, height, crop }).value
+    return core.call_api("images.resize", { uri, width, height, crop })
 end
 
 ---Проверить возможность загрузки изображений
 ---@return boolean возможность загрузки изображений
 function M.can_upload()
-    return core.call_api("images.canUpload").value == true
+    return core.call_api("images.canUpload") == true
 end
 
 M.callbacks = callbacks.images

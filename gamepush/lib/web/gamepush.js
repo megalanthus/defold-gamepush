@@ -79,8 +79,8 @@ let LibraryGamePush = {
         send: function (callback_id, data) {
             if (GamePushLib._callback && callback_id > 0) {
                 let message = data === undefined || data === null ? "" :
-                    typeof (data) === "object" ? JSON.stringify(data) :
-                        typeof (data) === "string" ? data : data.toString();
+                    typeof (data) === "object" ? JSON.stringify({value: JSON.stringify(data)}) :
+                        JSON.stringify({value: data});
                 let msg = allocate(intArrayFromString(message), ALLOC_NORMAL);
                 {{{makeDynCall("viii", "GamePushLib._callback")}}}(callback_id, msg);
                 Module._free(msg);
@@ -135,7 +135,7 @@ let LibraryGamePush = {
                 case "object":
                     if (native_api) {
                         try {
-                            return JSON.stringify(result_object);
+                            return JSON.stringify({value: JSON.stringify(result_object)});
                         } catch (error) {
                             return JSON.stringify({error: error});
                         }
@@ -150,7 +150,7 @@ let LibraryGamePush = {
                     array_parameters.forEach(function (item) {
                         result[item] = result_object[item];
                     });
-                    return JSON.stringify(result);
+                    return JSON.stringify({value: result});
                 case "function":
                     try {
                         let called_function = result_object.bind(parent_object);
@@ -160,9 +160,8 @@ let LibraryGamePush = {
                                 case "string":
                                 case "number":
                                 case "boolean":
-                                    return JSON.stringify({value: result});
                                 case "object":
-                                    return JSON.stringify(result);
+                                    return JSON.stringify({value: result});
                                 case "undefined":
                                     return;
                             }

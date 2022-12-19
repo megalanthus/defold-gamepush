@@ -6,55 +6,55 @@ local callbacks = require("gamepush.core.callbacks")
 ---Проверка включенного AdBlock
 ---@return boolean
 function M.is_adblock_enabled()
-    return core.call_api("ads.isAdblockEnabled").value == true
+    return core.call_api("ads.isAdblockEnabled") == true
 end
 
 ---Проверка доступности баннера
 ---@return boolean
 function M.is_sticky_available()
-    return core.call_api("ads.isStickyAvailable").value == true
+    return core.call_api("ads.isStickyAvailable") == true
 end
 
 ---Проверка доступности полноэкранной рекламы
 ---@return boolean
 function M.is_fullscreen_available()
-    return core.call_api("ads.isFullscreenAvailable").value == true
+    return core.call_api("ads.isFullscreenAvailable") == true
 end
 
 ---Проверка доступности рекламы за вознаграждение
 ---@return boolean
 function M.is_rewarded_available()
-    return core.call_api("ads.isRewardedAvailable").value == true
+    return core.call_api("ads.isRewardedAvailable") == true
 end
 
 ---Проверка доступности preload рекламы
 ---@return boolean
 function M.is_preloader_available()
-    return core.call_api("ads.isPreloaderAvailable").value == true
+    return core.call_api("ads.isPreloaderAvailable") == true
 end
 
 ---Проверка воспроизведения баннера
 ---@return boolean
 function M.is_sticky_playing()
-    return core.call_api("ads.isStickyPlaying").value == true
+    return core.call_api("ads.isStickyPlaying") == true
 end
 
 ---Проверка воспроизведения полноэкранной рекламы
 ---@return boolean
 function M.is_fullscreen_playing()
-    return core.call_api("ads.isFullscreenPlaying").value == true
+    return core.call_api("ads.isFullscreenPlaying") == true
 end
 
 ---Проверка воспроизведения рекламы за вознаграждение
 ---@return boolean
 function M.is_rewarded_playing()
-    return core.call_api("ads.isRewardedPlaying").value == true
+    return core.call_api("ads.isRewardedPlaying") == true
 end
 
 ---Проверка воспроизведения preload рекламы
 ---@return boolean
 function M.is_preloader_playing()
-    return core.call_api("ads.isPreloaderPlaying").value == true
+    return core.call_api("ads.isPreloaderPlaying") == true
 end
 
 ---Показать полноэкранную рекламу

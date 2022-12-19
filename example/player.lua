@@ -129,7 +129,7 @@ end
 
 local function fetch()
     gamepush.players.fetch({ ids = { 62116670, 62142823 } }, function(result)
-        utils.to_log("Fetch player data: " .. utils.table_to_string(result))
+        utils.to_log("Fetch player data:\n" .. utils.table_to_string(result))
     end)
 end
 

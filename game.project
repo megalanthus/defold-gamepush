@@ -13,7 +13,7 @@ high_dpi = 1
 title = defold-gamepush
 publisher = Megalanthus
 developer = Megalanthus
-version = v1.0.0
+version = 1.0.1
 
 [library]
 include_dirs = gamepush

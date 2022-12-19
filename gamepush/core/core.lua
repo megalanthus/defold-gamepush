@@ -33,12 +33,24 @@ end
 
 local function decode_result(result)
     if result then
-        local is_ok, value = pcall(json.decode, result)
+        local is_ok, data = pcall(json.decode, result)
         if is_ok then
-            if value and type(value) == "table" and value.error and value.error ~= "" then
-                pprint(value.error)
+            if data and type(data) == "table" then
+                if data.error and data.error ~= "" then
+                    if type(data.error) == "table" then
+                        pprint("Error:", data.error)
+                    else
+                        print(string.format("Error: %s", data.error))
+                    end
+                end
+                local is_value_ok, value = pcall(json.decode, data.value)
+                if is_value_ok then
+                    return value
+                else
+                    return data.value
+                end
             end
-            return value
+            return data
         else
             return result
         end
@@ -73,7 +85,7 @@ function M.init(callback)
     helpers.check_callback(callback)
     is_init = true
     gamepush.init(json.encode(callback_ids), on_event_callback, function(self, message, callback_id)
-        callback(message)
+        callback(decode_result(message))
     end)
 end
 

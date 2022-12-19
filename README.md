@@ -360,14 +360,12 @@ end)
 
 1. Параметр method ссылается на объект или поле объекта:
 
-- Если результат string, number или boolean то возвращается таблица с результатом {value = result}.
-- Если результат object, то возвращается таблица.
+- Если результат string, number, boolean или объект, то возвращаются полученные данные.
 - В случае если произошло исключение, то данные об ошибке возвращаются в виде таблицы {error = "error description"}.
 
 2. Параметр method ссылается на функцию:
 
-- Если результат string, number, boolean, то возвращается таблица с результатом {value = result}.
-- Если результат object, то возвращается таблица.
+- Если результат string, number, boolean или объект, то возвращаются полученные данные.
 - В случае если произошло исключение, или промис завершился ошибкой, то данные об ошибке возвращаются в виде таблицы
   {error = "error description"}.
 
@@ -380,7 +378,7 @@ description"}.
 ситуаций предусмотрен механизм сохранения объекта на уровне JS и дальнейшего его использования при следующих вызовах
 API.
 
-В этих случаях формат параметра `method` для функции `call_native_sdk` может примнимать вид:
+В этих случаях формат параметра `method` для функции `call_native_sdk` может принимать вид:
 
 - `var=path1.path2.path3`: объект path1.path2.path3 будет сохранен в переменную var
 - `var:method`: вызов метода из ранее сохраненного объекта
@@ -392,9 +390,9 @@ API.
 | Запрос к СДК                     | Тип       | Вызов функции и результат                                                                                                                                                                                                                                             |
 |----------------------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | environment                      | object    | call_native_sdk("environment")<br> table                                                                                                                                                                                                                              |
-| environment.i18n.lang            | string    | call_native_sdk("environment.i18n.lang")<br> {value = string}                                                                                                                                                                                                         |
+| environment.i18n.lang            | string    | call_native_sdk("environment.i18n.lang")<br> string                                                                                                                                                                                                                   |
 | env                              | undefined | call_native_sdk("env")<br> {error = 'Field or function "env" not found!'}                                                                                                                                                                                             |
-| player.getUniqueID()             | function  | call_native_sdk("player.getUniqueID")<br> {value = string}                                                                                                                                                                                                            |
+| player.getUniqueID()             | function  | call_native_sdk("player.getUniqueID")<br> string                                                                                                                                                                                                                      |
 | feedback.canReview()             | function  | call_native_sdk("feedback.canReview", nil, callback)<br> nil<br> После завершения промиса будет вызван callback.                                                                                                                                                      |
 | getLeaderboards().then(lb => {}) | function  | call_native_sdk("lb=getLeaderboards", nil, callback)<br> nil<br> После завершения промиса будет вызван callback.<br> Результат будет сохранен в переменной JS.                                                                                                        |
 | lb.setLeaderboardScore()         | function  | call_native_sdk("lb:setLeaderboardScore")<br> После завершения промиса будет вызван callback.<br> При вызове функции будет обращение к ранее сохраненной переменной JS, если она не найдена функция вернет {error = "The 'lb' object has not been previously saved!"} |
@@ -477,13 +475,13 @@ YaGames
 
 При использовании функций:
 
-- player_get(key)
-- player_set(key, value)
-- player_add(key, value)
-- player_toggle(key)
-- player_has(key)
-- player_to_json()
-- player_from_json(player)
+- player.get(key)
+- player.set(key, value)
+- player.add(key, value)
+- player.toggle(key)
+- player.has(key)
+- player.to_json()
+- player.from_json(player)
 
 данные будут сохраняться/считываться с помощью sys.save()/sys.load() локально в/из файла "gamepush.dat" (можно
 поменять)
@@ -495,25 +493,12 @@ local mock_api = require("gamepush.mock_api")
 mock_api.file_storage = "my_storage.dat"
 
 -- установка параметров "заглушек"
-mock_api.player.name = "my player name"
-mock_api.player.id = 625
-
--- или так
-mock_api.player = function()
-    return {
-        isLoggedIn = false,
-        hasAnyCredentials = false,
-        id = 234,
-        score = 500,
-        name = "player name",
-        avatar = "avatar",
-        isStub = true,
-        fields = mock_api.fields_data
-    }
-end
+mock_api["player.name"] = "my player name"
+mock_api["player.id"] = 625
+mock_api["player.score"] = 500
 ```
 
-Каждая функция-заглушка GamePush API может быть представлена таблицей данных или функцией выполняющее действие и/или
+Каждая функция-заглушка GamePush API может быть представлена данными или функцией выполняющее действие и/или
 возвращающая данные. Любые функции/данные можно переопределять для удобства работы/отладки.
 
 <a name="mock-native"></a>
