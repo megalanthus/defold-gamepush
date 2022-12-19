@@ -40,6 +40,12 @@ function M.call_api(method, parameters, native_api, callback)
             result = method_api
         end
     end
+    if type(result) == "table" then
+        result = { object = result }
+    else
+        result = { value = result }
+    end
+    result = json.encode(result)
     if callback then
         callback(nil, result)
     else

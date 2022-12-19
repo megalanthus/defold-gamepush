@@ -43,12 +43,15 @@ local function decode_result(result)
                         print(string.format("Error: %s", data.error))
                     end
                 end
-                local is_value_ok, value = pcall(json.decode, data.value)
-                if is_value_ok then
-                    return value
-                else
-                    return data.value
+                if data.object then
+                    local is_object_ok, object = pcall(json.decode, data.object)
+                    if is_object_ok then
+                        return object
+                    else
+                        return data.object
+                    end
                 end
+                return data.value
             end
             return data
         else

@@ -79,7 +79,7 @@ let LibraryGamePush = {
         send: function (callback_id, data) {
             if (GamePushLib._callback && callback_id > 0) {
                 let message = data === undefined || data === null ? "" :
-                    typeof (data) === "object" ? JSON.stringify({value: JSON.stringify(data)}) :
+                    typeof (data) === "object" ? JSON.stringify({object: data}) :
                         JSON.stringify({value: data});
                 let msg = allocate(intArrayFromString(message), ALLOC_NORMAL);
                 {{{makeDynCall("viii", "GamePushLib._callback")}}}(callback_id, msg);
@@ -133,24 +133,11 @@ let LibraryGamePush = {
                 case "boolean":
                     return JSON.stringify({value: result_object});
                 case "object":
-                    if (native_api) {
-                        try {
-                            return JSON.stringify({value: JSON.stringify(result_object)});
-                        } catch (error) {
-                            return JSON.stringify({error: error});
-                        }
+                    try {
+                        return JSON.stringify({object: JSON.stringify(result_object)});
+                    } catch (error) {
+                        return JSON.stringify({error: error});
                     }
-                    let result = {};
-                    for (let item in result_object) {
-                        let type = typeof (result_object[item]);
-                        if (type === "string" || type === "boolean" || type === "number") {
-                            result[item] = result_object[item];
-                        }
-                    }
-                    array_parameters.forEach(function (item) {
-                        result[item] = result_object[item];
-                    });
-                    return JSON.stringify({value: result});
                 case "function":
                     try {
                         let called_function = result_object.bind(parent_object);
@@ -160,8 +147,9 @@ let LibraryGamePush = {
                                 case "string":
                                 case "number":
                                 case "boolean":
-                                case "object":
                                     return JSON.stringify({value: result});
+                                case "object":
+                                    return JSON.stringify({object: result});
                                 case "undefined":
                                     return;
                             }
@@ -216,8 +204,9 @@ let LibraryGamePush = {
         if (result) {
             if (callback_id > 0) {
                 GamePushLib.send(callback_id, result);
+            } else {
+                return allocate(intArrayFromString(result), ALLOC_NORMAL);
             }
-            return allocate(intArrayFromString(result), ALLOC_NORMAL);
         }
     },
 }
