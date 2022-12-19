@@ -100,7 +100,7 @@ function M.call_api(method, parameters, callback, native_api)
     if not is_init then
         error("Initialize GamePush before calling functions!", 3)
     end
-    if parameters == nil then
+    if parameters == nil or (type(parameters) == "table" and #parameters == 0) then
         parameters = "[]"
     else
         if type(parameters) ~= "table" then
