@@ -7,7 +7,7 @@
 
 #if defined(DM_PLATFORM_HTML5)
 
-const int start_event_callbacks_id = 0xFF00;
+const int start_event_callbacks_id = 0xF000;
 
 typedef void (*ObjectMessage)(const int callback_id, const char* message, const int length);
 

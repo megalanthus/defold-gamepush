@@ -7,73 +7,13 @@ let LibraryGamePush = {
         _data: {},
 
         init_callbacks: function (gp, callback_ids) {
-            gp.on("pause", () => GamePushLib.send(callback_ids.common_pause));
-            gp.on("resume", () => GamePushLib.send(callback_ids.common_resume));
-            gp.player.on("sync", (success) => GamePushLib.send(callback_ids.player_sync, success));
-            gp.player.on("load", (success) => GamePushLib.send(callback_ids.player_load, success));
-            gp.player.on("login", (success) => GamePushLib.send(callback_ids.player_login, success));
-            gp.player.on("fetchFields", (success) => GamePushLib.send(callback_ids.player_fetch_fields, success));
-            gp.player.on("change", () => GamePushLib.send(callback_ids.player_change));
-            gp.payments.on("purchase", (result) => GamePushLib.send(callback_ids.payments_purchase, result));
-            gp.payments.on("error:purchase", (error) => GamePushLib.send(callback_ids.payments_purchase_error, error));
-            gp.payments.on("consume", (result) => GamePushLib.send(callback_ids.payments_consume, result));
-            gp.payments.on("error:consume", (error) => GamePushLib.send(callback_ids.payments_consume_error, error));
-            gp.payments.on("fetchProducts", (result) => GamePushLib.send(callback_ids.payments_fetch_products, result));
-            gp.payments.on("error:fetchProducts", (error) => GamePushLib.send(callback_ids.payments_fetch_products_error, error));
-            gp.payments.on("subscribe", (result) => GamePushLib.send(callback_ids.payments_subscribe, result));
-            gp.payments.on("error:subscribe", (error) => GamePushLib.send(callback_ids.payments_subscribe_error, error));
-            gp.payments.on("unsubscribe", (result) => GamePushLib.send(callback_ids.payments_unsubscribe, result));
-            gp.payments.on("error:unsubscribe", (error) => GamePushLib.send(callback_ids.payments_unsubscribe_error, error));
-            gp.ads.on("start", () => GamePushLib.send(callback_ids.ads_start));
-            gp.ads.on("close", (success) => GamePushLib.send(callback_ids.ads_close, success));
-            gp.ads.on("fullscreen:start", () => GamePushLib.send(callback_ids.ads_fullscreen_start));
-            gp.ads.on("fullscreen:close", (success) => GamePushLib.send(callback_ids.ads_fullscreen_close, success));
-            gp.ads.on("preloader:start", () => GamePushLib.send(callback_ids.ads_preloader_start));
-            gp.ads.on("preloader:close", (success) => GamePushLib.send(callback_ids.ads_preloader_close, success));
-            gp.ads.on("rewarded:start", () => GamePushLib.send(callback_ids.ads_rewarded_start));
-            gp.ads.on("rewarded:close", (success) => GamePushLib.send(callback_ids.ads_rewarded_close, success));
-            gp.ads.on("rewarded:reward", () => GamePushLib.send(callback_ids.ads_rewarded_reward));
-            gp.ads.on("sticky:start", () => GamePushLib.send(callback_ids.ads_sticky_start));
-            gp.ads.on("sticky:render", () => GamePushLib.send(callback_ids.ads_sticky_render));
-            gp.ads.on("sticky:refresh", () => GamePushLib.send(callback_ids.ads_sticky_refresh));
-            gp.ads.on("sticky:close", () => GamePushLib.send(callback_ids.ads_sticky_close));
-            gp.achievements.on("unlock", (achievement) => GamePushLib.send(callback_ids.achievements_unlock, achievement));
-            gp.achievements.on("error:unlock", (error) => GamePushLib.send(callback_ids.achievements_unlock_error, error));
-            gp.achievements.on("open", () => GamePushLib.send(callback_ids.achievements_open));
-            gp.achievements.on("close", () => GamePushLib.send(callback_ids.achievements_close));
-            gp.achievements.on("fetch", (result) => GamePushLib.send(callback_ids.achievements_fetch, result));
-            gp.achievements.on("error:fetch", (error) => GamePushLib.send(callback_ids.achievements_fetch_error, error));
-            gp.variables.on("fetch", () => GamePushLib.send(callback_ids.variables_fetch));
-            gp.variables.on("error:fetch", (error) => GamePushLib.send(callback_ids.variables_fetch_error, error));
-            gp.gamesCollections.on("open", () => GamePushLib.send(callback_ids.games_collections_open));
-            gp.gamesCollections.on("close", () => GamePushLib.send(callback_ids.games_collections_close));
-            gp.gamesCollections.on("fetch", (result) => GamePushLib.send(callback_ids.games_collections_fetch, result));
-            gp.gamesCollections.on("error:fetch", (error) => GamePushLib.send(callback_ids.games_collections_fetch_error, error));
-            gp.images.on("upload", (image) => GamePushLib.send(callback_ids.images_upload, image));
-            gp.images.on("error:upload", (error) => GamePushLib.send(callback_ids.images_upload_error, error));
-            gp.images.on("choose", (result) => GamePushLib.send(callback_ids.images_choose, result));
-            gp.images.on("error:choose", (error) => GamePushLib.send(callback_ids.images_choose_error, error));
-            gp.images.on("fetch", (result) => GamePushLib.send(callback_ids.images_fetch, result));
-            gp.images.on("error:fetch", (error) => GamePushLib.send(callback_ids.images_fetch_error, error));
-            gp.images.on("fetchMore", (result) => GamePushLib.send(callback_ids.images_fetch_more, result));
-            gp.images.on("error:fetchMore", (error) => GamePushLib.send(callback_ids.images_fetch_more_error, error));
-            gp.files.on("upload", (result) => GamePushLib.send(callback_ids.files_upload, result));
-            gp.files.on("error:upload", (error) => GamePushLib.send(callback_ids.files_upload_error, error));
-            gp.files.on("loadContent", (text) => GamePushLib.send(callback_ids.files_load_content, text));
-            gp.files.on("error:loadContent", (error) => GamePushLib.send(callback_ids.files_load_content_error, error));
-            gp.files.on("choose", (result) => GamePushLib.send(callback_ids.files_choose, result));
-            gp.files.on("error:choose", (error) => GamePushLib.send(callback_ids.files_choose_error, error));
-            gp.files.on("fetch", (result) => GamePushLib.send(callback_ids.files_fetch, result));
-            gp.files.on("error:fetch", (error) => GamePushLib.send(callback_ids.files_fetch_error, error));
-            gp.files.on("fetchMore", (result) => GamePushLib.send(callback_ids.files_fetch_more, result));
-            gp.files.on("error:fetchMore", (error) => GamePushLib.send(callback_ids.files_fetch_more_error, error));
-            gp.documents.on("open", () => GamePushLib.send(callback_ids.documents_open));
-            gp.documents.on("close", () => GamePushLib.send(callback_ids.documents_close));
-            gp.documents.on("fetch", (document) => GamePushLib.send(callback_ids.documents_fetch, document));
-            gp.documents.on("error:fetch", (error) => GamePushLib.send(callback_ids.documents_fetch_error, error));
-            gp.fullscreen.on("open", () => GamePushLib.send(callback_ids.fullscreen_open));
-            gp.fullscreen.on("close", () => GamePushLib.send(callback_ids.fullscreen_close));
-            gp.fullscreen.on("change", () => GamePushLib.send(callback_ids.fullscreen_change));
+            for (let callback_group in callback_ids) {
+                let base_object = callback_group === "common" ? gp : gp[callback_group];
+                let group_callback_ids = callback_ids[callback_group];
+                for (let event_name in group_callback_ids) {
+                    base_object.on(event_name, (result) => GamePushLib.send(group_callback_ids[event_name], result));
+                }
+            }
         },
 
         send: function (callback_id, data) {

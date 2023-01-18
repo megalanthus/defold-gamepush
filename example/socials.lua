@@ -20,7 +20,7 @@ local function share_param()
         image = "https://gamepush.com/img/ogimage.png",
         url = "https://gamepush.com"
     }
-    utils.to_log("Socials share\n" .. utils.table_to_string(parameters))
+    utils.to_log("Socials share:", parameters)
     gamepush.socials.share(parameters)
 end
 
@@ -39,7 +39,7 @@ local function post_param()
         image = "https://gamepush.com/img/ogimage.png",
         url = "https://gamepush.com"
     }
-    utils.to_log("Socials post\n" .. utils.table_to_string(parameters))
+    utils.to_log("Socials post:", parameters)
     gamepush.socials.post(parameters)
 end
 
@@ -56,7 +56,7 @@ local function invite_param()
     local parameters = {
         text = "I invite you to gamepush!",
     }
-    utils.to_log("Socials invite\n" .. utils.table_to_string(parameters))
+    utils.to_log("Socials invite:", parameters)
     gamepush.socials.invite(parameters)
 end
 

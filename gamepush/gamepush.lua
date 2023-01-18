@@ -1,6 +1,6 @@
 local M = {}
 
-local version = string.format("GamePush for Defold v1.0.1")
+local version = string.format("GamePush for Defold v1.1.0")
 local core = require("gamepush.core.core")
 local helpers = require("gamepush.core.helpers")
 local callbacks = require("gamepush.core.callbacks")
@@ -115,6 +115,7 @@ M.player = require("gamepush.core.player")
 M.players = require("gamepush.core.players")
 M.payments = require("gamepush.core.payments")
 M.leaderboard = require("gamepush.core.leaderboard")
+M.channels = require("gamepush.core.channels")
 M.ads = require("gamepush.core.ads")
 M.achievements = require("gamepush.core.achievements")
 M.socials = require("gamepush.core.socials")

@@ -26,7 +26,7 @@ end
 gamepush.documents.callbacks.fetch = function(document)
     utils.to_console("Document fetch", document)
 end
-gamepush.documents.callbacks.fetch_error = function(error)
+gamepush.documents.callbacks.error_fetch = function(error)
     utils.to_console("Document fetch error:", error)
 end
 

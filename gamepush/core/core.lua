@@ -11,22 +11,22 @@ end
 local is_init = false
 
 local function get_event_callback_name(callback_id)
-    for callback_name, id in pairs(callback_ids) do
-        if callback_id == id then
-            return callback_name
+    for callback_group, list_callbacks in pairs(callback_ids) do
+        for callback_name, id in pairs(list_callbacks) do
+            if callback_id == id then
+                callback_name = string.gsub(string.gsub(callback_name, ":", "_"), "%u", function(c)
+                    return string.format("_%s", string.lower(c))
+                end)
+                return callback_group, callback_name
+            end
         end
     end
 end
 
-local function find_callback(callback_name)
-    for section, section_callbacks in pairs(callbacks) do
-        if string.find(callback_name, section) == 1 then
-            local section_name = string.sub(callback_name, string.len(section) + 2)
-            local callback = section_callbacks[section_name]
-            if callback then
-                return callback
-            end
-            break
+local function find_callback(callback_group, callback_name)
+    for group, section_callbacks in pairs(callbacks) do
+        if group == callback_group then
+            return section_callbacks[callback_name]
         end
     end
 end
@@ -61,9 +61,9 @@ local function decode_result(result)
 end
 
 local function on_event_callback(self, message, id)
-    local callback_name = get_event_callback_name(id)
+    local callback_group, callback_name = get_event_callback_name(id)
     if callback_name ~= nil then
-        local callback = find_callback(callback_name)
+        local callback = find_callback(callback_group, callback_name)
         if callback == nil then
             return
         end

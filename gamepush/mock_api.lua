@@ -44,11 +44,11 @@ M["serverTime"] = os.date("%FT%T")
 M["isPaused"] = false
 M["pause"] = function()
     M["isPaused"] = true
-    M.send(callback_ids.common_pause)
+    M.send(callback_ids.common.pause)
 end
 M["resume"] = function()
     M["isPaused"] = false
-    M.send(callback_ids.common_resume)
+    M.send(callback_ids.common.resume)
 end
 
 -- приложение
@@ -69,24 +69,24 @@ M["player.hasAnyCredentials"] = false
 M["player.isLoggedInByPlatform"] = false
 M["player.sync"] = function(parameters)
     save_storage()
-    M.send(callback_ids.player_change)
-    M.send(callback_ids.player_sync, true)
+    M.send(callback_ids.player.change)
+    M.send(callback_ids.player.sync, true)
 end
 M["player.load"] = function()
     local data = sys.load(get_storage_file_name())
     for key, value in pairs(data) do
         M[key] = value
     end
-    M.send(callback_ids.player_change)
-    M.send(callback_ids.player_load, true)
+    M.send(callback_ids.player.change)
+    M.send(callback_ids.player.load, true)
 end
 M["player.login"] = function()
     M["player.isLoggedIn"] = true
-    M.send(callback_ids.player_login, true)
+    M.send(callback_ids.player.login, true)
     return true
 end
 M["player.fetchFields"] = function()
-    M.send(callback_ids.player_fetch_fields)
+    M.send(callback_ids.player.fetchFields)
 end
 M["player.id"] = 0
 M["player.score"] = 0
@@ -110,19 +110,19 @@ M["player.set"] = function(key, value)
     key = "player." .. key
     M[key] = value
     save_storage()
-    M.send(callback_ids.player_change)
+    M.send(callback_ids.player.change)
 end
 M["player.add"] = function(key, value)
     key = "player." .. key
     M[key] = (M[key] or 0) + value
     save_storage()
-    M.send(callback_ids.player_change)
+    M.send(callback_ids.player.change)
 end
 M["player.toggle"] = function(key)
     key = "player." .. key
     M[key] = not M[key]
     save_storage()
-    M.send(callback_ids.player_change)
+    M.send(callback_ids.player.change)
 end
 M["player.has"] = function(key)
     key = "player." .. key
@@ -142,12 +142,12 @@ M["player.fromJSON"] = function(player)
         M["player." .. key] = value
     end
     save_storage()
-    M.send(callback_ids.player_change)
+    M.send(callback_ids.player.change)
 end
 M["player.reset"] = function()
     M["player.score"] = 0
     M["player.name"] = ""
-    M.send(callback_ids.player_change)
+    M.send(callback_ids.player.change)
 end
 M["player.remove"] = function()
     M["player.reset"]()
@@ -199,12 +199,12 @@ M["payments.purchase"] = function(product)
                 payload = {},
                 productId = product.id or 0
             }
-            M.send(callback_ids.payments_purchase, { ["purchase"] = purchase, ["product"] = item })
+            M.send(callback_ids.payments.purchase, { ["purchase"] = purchase, ["product"] = item })
             return { ["purchase"] = purchase, ["product"] = item, success = true, error = "" }
         end
     end
     local result = { message = "purchase_not_found" }
-    M.send(callback_ids.payments_purchase_error, result)
+    M.send(callback_ids.payments["error:purchase"], result)
     return result
 end
 M["payments.consume"] = function(product)
@@ -217,13 +217,13 @@ M["payments.consume"] = function(product)
                     payload = {},
                     productId = product.id or 0
                 }
-                M.send(callback_ids.payments_consume, { ["purchase"] = purchase, ["product"] = item })
+                M.send(callback_ids.payments.consume, { ["purchase"] = purchase, ["product"] = item })
                 return { ["purchase"] = purchase, ["product"] = item, success = true, error = "" }
             end
         end
     end
     local result = { message = "purchase_not_found" }
-    M.send(callback_ids.payments_consume_error, result)
+    M.send(callback_ids.payments["error:consume"], result)
     return result
 end
 M["payments.has"] = function(product_id)
@@ -238,7 +238,7 @@ M["payments.has"] = function(product_id)
     return M.payments_data[product_id] ~= nil and M.payments_data[product_id] > 0
 end
 M["payments.fetchProducts"] = function()
-    M.send(callback_ids.payments_fetch_products, M.product_data)
+    M.send(callback_ids.payments.fetchProducts, M.product_data)
     return M.product_data
 end
 
@@ -286,49 +286,49 @@ M["ads.isFullscreenPlaying"] = false
 M["ads.isRewardedPlaying"] = false
 M["ads.isPreloaderPlaying"] = false
 M["ads.showFullscreen"] = function()
-    M.send(callback_ids.ads_start)
-    M.send(callback_ids.ads_fullscreen_start)
+    M.send(callback_ids.ads.start)
+    M.send(callback_ids.ads["fullscreen:start"])
     local result = M.ads_fullscreen_result
-    M.send(callback_ids.ads_close, result)
-    M.send(callback_ids.ads_fullscreen_close, result)
+    M.send(callback_ids.ads.close, result)
+    M.send(callback_ids.ads["fullscreen:close"], result)
     return result
 end
 M["ads.showPreloader"] = function()
-    M.send(callback_ids.ads_start)
-    M.send(callback_ids.ads_preloader_start)
+    M.send(callback_ids.ads.start)
+    M.send(callback_ids.ads["preloader:start"])
     local result = M.ads_preloader_result
-    M.send(callback_ids.ads_close, result)
-    M.send(callback_ids.ads_preloader_close, result)
+    M.send(callback_ids.ads.close, result)
+    M.send(callback_ids.ads["preloader:close"], result)
     return result
 end
 M["ads.showRewardedVideo"] = function()
-    M.send(callback_ids.ads_start)
-    M.send(callback_ids.ads_rewarded_start)
+    M.send(callback_ids.ads.start)
+    M.send(callback_ids.ads["rewarded:start"])
     local result = M.ads_rewarded_result
-    M.send(callback_ids.ads_close, result)
-    M.send(callback_ids.ads_rewarded_close, result)
+    M.send(callback_ids.ads.close, result)
+    M.send(callback_ids.ads["rewarded:close"], result)
     if result then
-        M.send(callback_ids.ads_rewarded_reward)
+        M.send(callback_ids.ads["rewarded:reward"])
     end
     return result
 end
 M["ads.showSticky"] = function()
-    M.send(callback_ids.ads_start)
-    M.send(callback_ids.ads_sticky_start)
-    M.send(callback_ids.ads_sticky_render)
+    M.send(callback_ids.ads.start)
+    M.send(callback_ids.ads["sticky:start"])
+    M.send(callback_ids.ads["sticky:render"])
     local result = M["ads.isStickyPlaying"] == false
     M["ads.isStickyPlaying"] = true
     return result
 end
 M["ads.refreshSticky"] = function()
-    M.send(callback_ids.ads_sticky_refresh)
-    M.send(callback_ids.ads_sticky_render)
+    M.send(callback_ids.ads["sticky:refresh"])
+    M.send(callback_ids.ads["sticky:render"])
     M["ads.isStickyPlaying"] = true
     return true
 end
 M["ads.closeSticky"] = function()
-    M.send(callback_ids.ads_close, true)
-    M.send(callback_ids.ads_sticky_close)
+    M.send(callback_ids.ads.close, true)
+    M.send(callback_ids.ads["sticky:close"])
     M["ads.isStickyPlaying"] = false
 end
 
@@ -375,16 +375,16 @@ M["achievements.unlock"] = function(parameters)
         icon = "https://cdn.gamepush.com/static/256x256/images/achievements/flash.png",
         tag = "my_achiv"
     }
-    M.send(callback_ids.achievements_unlock, result)
+    M.send(callback_ids.achievements.unlock, result)
     return { achievement = result, success = true, error = "" }
 end
 M["achievements.open"] = function()
-    M.send(callback_ids.achievements_fetch, M.achievement_data)
-    M.send(callback_ids.achievements_open)
-    M.send(callback_ids.achievements_close)
+    M.send(callback_ids.achievements.fetch, M.achievement_data)
+    M.send(callback_ids.achievements.open)
+    M.send(callback_ids.achievements.close)
 end
 M["achievements.fetch"] = function()
-    M.send(callback_ids.achievements_fetch, M.achievement_data)
+    M.send(callback_ids.achievements.fetch, M.achievement_data)
     return M.achievement_data
 end
 
@@ -398,7 +398,7 @@ M["socials.isSupportsNativeCommunityJoin"] = false
 
 -- Игровые переменные
 M["variables.fetch"] = function()
-    M.send(callback_ids.game_variables_fetch)
+    M.send(callback_ids.variables.fetch)
 end
 M["variables.get"] = "val"
 M["variables.has"] = true
@@ -421,10 +421,10 @@ M.games_collections_data = {
     tag = "ALL"
 }
 M["gamesCollections.open"] = function()
-    M.send(callback_ids.payments_fetch_products, M.games_collections_data)
+    M.send(callback_ids.payments.fetchProducts, M.games_collections_data)
 end
 M["gamesCollections.fetch"] = function()
-    M.send(callback_ids.payments_fetch_products, M.games_collections_data)
+    M.send(callback_ids.payments.fetchProducts, M.games_collections_data)
     return M.games_collections_data
 end
 

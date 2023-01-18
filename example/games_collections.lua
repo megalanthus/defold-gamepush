@@ -9,7 +9,7 @@ end
 
 local function fetch()
     gamepush.games_collections.fetch("ALL", function(result)
-        utils.to_log("Games collections fetch:\n" .. utils.table_to_string(result))
+        utils.to_log("Games collections fetch:", result)
     end)
 end
 
@@ -27,7 +27,7 @@ end
 gamepush.games_collections.callbacks.fetch = function(result)
     utils.to_console("Games collections fetch", result)
 end
-gamepush.games_collections.callbacks.fetch_error = function(error)
+gamepush.games_collections.callbacks.error_fetch = function(error)
     utils.to_console("Games collections fetch error:", error)
 end
 

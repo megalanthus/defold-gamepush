@@ -51,10 +51,6 @@ local function score()
     utils.to_log(gamepush.player.score())
 end
 
-local function score()
-    utils.to_log(gamepush.player.score())
-end
-
 local function name()
     utils.to_log(gamepush.player.name())
 end
@@ -95,13 +91,13 @@ local function has()
 end
 
 local function to_json()
-    utils.to_log("player to json:\n" .. utils.table_to_string(gamepush.player.to_json()))
+    utils.to_log("player to json:", gamepush.player.to_json())
 end
 
 local function from_json()
     local player = { name = "Name player", score = 152 }
     gamepush.player.from_json(player)
-    utils.to_log("player from json:\n" .. utils.table_to_string(player))
+    utils.to_log("player from json:", player)
 end
 
 local function reset()
@@ -115,21 +111,21 @@ local function remove()
 end
 
 local function get_field()
-    utils.to_log("player get field:\n" .. utils.table_to_string(gamepush.player.get_field("score")))
+    utils.to_log("player get field:", gamepush.player.get_field("score"))
 end
 
 local function get_field_name()
-    utils.to_log("player get field name: " .. gamepush.player.get_field_name("score"))
+    utils.to_log("player get field name:", gamepush.player.get_field_name("score"))
 end
 
 local function get_field_variant_name()
     local variant_name = gamepush.player.get_field_variant_name("progress", "progress_value")
-    utils.to_log("player get field variant name: " .. tostring(variant_name))
+    utils.to_log("player get field variant name:", variant_name)
 end
 
 local function fetch()
     gamepush.players.fetch({ ids = { 62116670, 62142823 } }, function(result)
-        utils.to_log("Fetch player data:\n" .. utils.table_to_string(result))
+        utils.to_log("Fetch player data:", result)
     end)
 end
 

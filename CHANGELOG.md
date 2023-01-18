@@ -1,5 +1,11 @@
 # Change Log
 
+# [v1.1.0](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.1.0) (2023-01-17)
+
+**Added**
+
+- New features: channels.
+
 # [v1.0.1](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.0.1) (2022-12-19)
 
 **Changed**

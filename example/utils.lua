@@ -4,7 +4,7 @@ local padding = vmath.vector3(10, 10, 0)
 local button_id = hash("template/button")
 local label_id = hash("template/label")
 
-function M.table_to_string(tbl, space_count)
+local function table_to_string(tbl, space_count)
     if tbl == nil then
         return "nil"
     end
@@ -18,32 +18,35 @@ function M.table_to_string(tbl, space_count)
             space = string.rep(" ", space_count)
         end
         if type(value) == "table" then
-            result = result .. space .. key .. ":\n" .. M.table_to_string(value, space_count + 2)
+            result = string.format("%s%s%s:\n%s", result, space, key, table_to_string(value, space_count + 2))
         else
-            result = result .. space .. key .. ": " .. tostring(value) .. "\n"
+            result = string.format("%s%s%s: %s\n", result, space, key, tostring(value))
         end
     end
     return result
 end
 
-function M.to_log(value)
-    if type(value) == "table" then
-        value = M.table_to_string(value)
-    end
-    gui.set_text(gui.get_node("label_log"), tostring(value))
-end
-
-function M.to_console(...)
+local function to_string(...)
     local data = ""
     for _, value in ipairs { ... } do
         if type(value) == "table" then
-            data = data .. M.table_to_string(value) .. "\n"
+            data = string.format("%s%s\n", data, table_to_string(value))
         else
-            data = data .. tostring(value) .. "\n"
+            data = string.format("%s%s\n", data, tostring(value))
         end
     end
+    return data
+end
+
+function M.to_log(...)
+    local data = to_string(...)
+    gui.set_text(gui.get_node("label_log"), data)
+end
+
+function M.to_console(...)
+    local data = to_string(...)
     gui.set_text(gui.get_node("label_console"), data)
-    pprint(string.sub(data, 1, -2))
+    pprint(...)
 end
 
 function M.make_buttons(buttons, offset_position)

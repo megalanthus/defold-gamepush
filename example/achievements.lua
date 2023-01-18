@@ -3,7 +3,7 @@ local utils = require("example.utils")
 
 local function unlock()
     gamepush.achievements.unlock("my_achiv", function(result)
-        utils.to_log("Achievements unlock:\n" .. utils.table_to_string(result))
+        utils.to_log("Achievements unlock:", result)
     end)
 end
 
@@ -15,7 +15,7 @@ end
 
 local function fetch()
     gamepush.achievements.fetch(function(achievements)
-        utils.to_log("Achievements fetch:\n" .. utils.table_to_string(achievements))
+        utils.to_log("Achievements fetch:", achievements)
     end)
 end
 
@@ -28,7 +28,7 @@ local M = {
 gamepush.achievements.callbacks.unlock = function(achievement)
     utils.to_console("achievement unlock:", achievement)
 end
-gamepush.achievements.callbacks.unlock_error = function(error)
+gamepush.achievements.callbacks.error_unlock = function(error)
     utils.to_console("achievement unlock error:", error)
 end
 gamepush.achievements.callbacks.open = function()
@@ -40,7 +40,7 @@ end
 gamepush.achievements.callbacks.fetch = function(result)
     utils.to_console("fetch achievements:", result)
 end
-gamepush.achievements.callbacks.fetch_error = function(error)
+gamepush.achievements.callbacks.error_fetch = function(error)
     utils.to_console("fetch achievements error:", error)
 end
 
