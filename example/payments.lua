@@ -6,13 +6,13 @@ local function is_available()
 end
 
 local function purchase()
-    gamepush.payments.purchase(749, function(result)
+    gamepush.payments.purchase({ id = 749 }, function(result)
         utils.to_log("Payments purchase:", result)
     end)
 end
 
 local function consume()
-    gamepush.payments.consume(749, function(result)
+    gamepush.payments.consume({ id = 749 }, function(result)
         utils.to_log("Payments consume:", result)
     end)
 end
@@ -32,13 +32,13 @@ local function is_subscriptions_available()
 end
 
 local function subscribe()
-    gamepush.payments.subscribe("Test_subscription", function(result)
+    gamepush.payments.subscribe({ tag = "Test_subscription" }, function(result)
         utils.to_log("Subscribe:", result)
     end)
 end
 
 local function unsubscribe()
-    gamepush.payments.unsubscribe("Test_subscription", function(result)
+    gamepush.payments.unsubscribe({ tag = "Test_subscription" }, function(result)
         utils.to_log("Unsubscribe:", result)
     end)
 end

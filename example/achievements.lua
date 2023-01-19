@@ -2,7 +2,7 @@ local gamepush = require("gamepush.gamepush")
 local utils = require("example.utils")
 
 local function unlock()
-    gamepush.achievements.unlock("my_achiv", function(result)
+    gamepush.achievements.unlock({ tag = "my_achiv" }, function(result)
         utils.to_log("Achievements unlock:", result)
     end)
 end

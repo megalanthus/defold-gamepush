@@ -2,35 +2,35 @@ local gamepush = require("gamepush.gamepush")
 local utils = require("example.utils")
 
 local function open()
-    local param = {
+    local parameters = {
         limit = 5,
         order = "DESC",
         includeFields = { "level" },
         displayFields = { "score", "level" },
         withMe = "last"
     }
-    gamepush.leaderboard.open(param)
-    utils.to_log("Leaderboard open:", param)
+    gamepush.leaderboard.open(parameters)
+    utils.to_log("Leaderboard open:", parameters)
 end
 
 local function fetch()
-    local param = {
+    local parameters = {
         limit = 3,
         order = "ASC",
         includeFields = { "level" },
         displayFields = { "score", "level" },
         withMe = "last"
     }
-    gamepush.leaderboard.fetch(param, function(leaders)
+    gamepush.leaderboard.fetch(parameters, function(leaders)
         utils.to_log("Leaderboard fetch:", leaders)
     end)
 end
 
 local function fetch_player_rating()
-    local param = {
-        includeFields = { "level" },
+    local parameters = {
+        includeFields = { "level" }
     }
-    gamepush.leaderboard.fetch_player_rating(param, function(leaders)
+    gamepush.leaderboard.fetch_player_rating(parameters, function(leaders)
         utils.to_log("Leaderboard fetch rating:", leaders)
     end)
 end
@@ -56,24 +56,24 @@ local function fetch_scoped()
 end
 
 local function publish_record()
-    local record = {
+    local parameters = {
         tag = "test",
         variant = "levels",
         record = {
-            score = 250
-        },
+            level = 50
+        }
     }
-    gamepush.leaderboard.publish_record(record, function(result)
+    gamepush.leaderboard.publish_record(parameters, function(result)
         utils.to_log("Leaderboard publish record:", result)
     end)
 end
 
 local function fetch_player_rating_scoped()
-    local param = {
+    local parameters = {
         tag = "test",
         variant = "levels"
     }
-    gamepush.leaderboard.fetch_player_rating_scoped(param, function(leaders)
+    gamepush.leaderboard.fetch_player_rating_scoped(parameters, function(leaders)
         utils.to_log("Leaderboard fetch rating with parameters:", leaders)
     end)
 end

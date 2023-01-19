@@ -13,10 +13,10 @@ M.rare = {
 }
 
 ---Разблокировать достижение
----@param achievement number|string id или tag достижения
+---@param parameters table параметры
 ---@param callback function функция обратного вызова по результату разблокировки достижения: callback(result)
-function M.unlock(achievement, callback)
-    local parameters = helpers.make_parameters_id_or_tag(achievement, "Achievement")
+function M.unlock(parameters, callback)
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("achievements.unlock", { parameters }, callback)
 end

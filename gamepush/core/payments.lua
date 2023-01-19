@@ -10,29 +10,28 @@ function M.is_available()
 end
 
 ---Покупка
----@param product number|string id или tag продукта
+---@param parameters table параметры
 ---@param callback function функция обратного вызова по результату покупки продукта: callback(result)
-function M.purchase(product, callback)
-    local parameters = helpers.make_parameters_id_or_tag(product, "Product")
+function M.purchase(parameters, callback)
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("payments.purchase", { parameters }, callback)
 end
 
 ---Использование покупки
----@param product number|string id или tag продукта
+---@param parameters table параметры
 ---@param callback function функция обратного вызова по результату использования продукта: callback(result)
-function M.consume(product, callback)
-    local parameters = helpers.make_parameters_id_or_tag(product, "Product")
+function M.consume(parameters, callback)
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("payments.consume", { parameters }, callback)
 end
 
 ---Проверка наличия покупки
----@param product number|string id или tag продукта
+---@param product string|number тег или идентификатор продукта
 ---@return boolean результат
 function M.has(product)
-    local parameters = helpers.make_parameters_id_or_tag(product, "Product")
-    return core.call_api("payments.has", parameters.id or parameters.tag) == true
+    return core.call_api("payments.has", product) == true
 end
 
 ---Получение списка продуктов
@@ -49,19 +48,19 @@ function M.is_subscriptions_available()
 end
 
 ---Подписка
----@param product number|string id или tag продукта
+---@param parameters table параметры
 ---@param callback function функция обратного вызова по результату подписки: callback(result)
-function M.subscribe(product, callback)
-    local parameters = helpers.make_parameters_id_or_tag(product, "Product")
+function M.subscribe(parameters, callback)
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("payments.subscribe", { parameters }, callback)
 end
 
 ---Отмена подписки
----@param product number|string id или tag продукта
+---@param parameters table параметры
 ---@param callback function функция обратного вызова по результату подписки: callback(result)
-function M.unsubscribe(product, callback)
-    local parameters = helpers.make_parameters_id_or_tag(product, "Product")
+function M.unsubscribe(parameters, callback)
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("payments.unsubscribe", { parameters }, callback)
 end

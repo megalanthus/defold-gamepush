@@ -2,13 +2,13 @@ local gamepush = require("gamepush.gamepush")
 local utils = require("example.utils")
 
 local function open()
-    gamepush.games_collections.open("ALL", function()
+    gamepush.games_collections.open({ tag = "ALL" }, function()
         utils.to_log("Games collections open")
     end)
 end
 
 local function fetch()
-    gamepush.games_collections.fetch("ALL", function(result)
+    gamepush.games_collections.fetch({ tag = "ALL" }, function(result)
         utils.to_log("Games collections fetch:", result)
     end)
 end

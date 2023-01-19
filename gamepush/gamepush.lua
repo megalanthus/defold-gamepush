@@ -84,7 +84,7 @@ end
 ---Установить фоновое изображение игры
 ---@param parameters table параметры
 function M.set_background(parameters)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     core.call_api("setBackground", parameters)
 end
 

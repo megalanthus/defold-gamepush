@@ -4,27 +4,21 @@ local helpers = require("gamepush.core.helpers")
 local callbacks = require("gamepush.core.callbacks")
 
 ---Открыть оверлей с играми
----@param collection number|string id или tag коллекции
+---@param parameters table параметры
 ---@param callback function функция обратного вызова по результату открытия оверлея: callback()
-function M.open(collection, callback)
+function M.open(parameters, callback)
+    helpers.check_table(parameters)
     helpers.check_callback(callback)
-    local parameters
-    if collection then
-        parameters = helpers.make_parameters_id_or_tag(collection, "Collection")
-    end
     core.call_api("gamesCollections.open", { parameters }, callback)
 end
 
 ---Получить коллекцию игр
----@param collection number|string id или tag коллекции
+---@param parameters table параметры
 ---@param callback function функция обратного вызова по результату получения коллекции игр: callback(result)
 ---@return table
-function M.fetch(collection, callback)
+function M.fetch(parameters, callback)
+    helpers.check_table(parameters)
     helpers.check_callback(callback)
-    local parameters
-    if collection then
-        parameters = helpers.make_parameters_id_or_tag(collection, "Collection")
-    end
     core.call_api("gamesCollections.fetch", { parameters }, callback)
 end
 

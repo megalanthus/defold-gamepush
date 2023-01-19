@@ -6,7 +6,7 @@ local helpers = require("gamepush.core.helpers")
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова по результату получения данных других игроков: callback(result)
 function M.fetch(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("players.fetch", { parameters }, callback)
 end

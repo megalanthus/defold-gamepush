@@ -7,7 +7,7 @@ local callbacks = require("gamepush.core.callbacks")
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(channel)
 function M.create_channel(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.createChannel", { parameters }, callback)
 end
@@ -16,7 +16,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(channel)
 function M.update_channel(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.updateChannel", { parameters }, callback)
 end
@@ -25,7 +25,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback()
 function M.delete_channel(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.deleteChannel", { parameters }, callback)
 end
@@ -34,7 +34,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(channel)
 function M.fetch_channel(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchChannel", { parameters }, callback)
 end
@@ -43,7 +43,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_channels(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchChannels", { parameters }, callback)
 end
@@ -52,7 +52,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_more_channels(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchMoreChannels", { parameters }, callback)
 end
@@ -61,7 +61,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.join(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.join", { parameters }, callback)
 end
@@ -70,7 +70,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.cancel_join(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.cancelJoin", { parameters }, callback)
 end
@@ -79,7 +79,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.leave(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.leave", { parameters }, callback)
 end
@@ -88,7 +88,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.kick(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.kick", { parameters }, callback)
 end
@@ -97,7 +97,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_members(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchMembers", { parameters }, callback)
 end
@@ -106,7 +106,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_more_members(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchMoreMembers", { parameters }, callback)
 end
@@ -115,7 +115,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.mute(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.mute", { parameters }, callback)
 end
@@ -124,7 +124,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.unmute(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.unmute", { parameters }, callback)
 end
@@ -133,7 +133,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.send_invite(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.sendInvite", { parameters }, callback)
 end
@@ -142,7 +142,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.cancel_invite(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.cancelInvite", { parameters }, callback)
 end
@@ -151,7 +151,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.accept_invite(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.acceptInvite", { parameters }, callback)
 end
@@ -160,7 +160,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.reject_invite(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.rejectInvite", { parameters }, callback)
 end
@@ -169,7 +169,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_invites(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchInvites", { parameters }, callback)
 end
@@ -178,7 +178,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_more_invites(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchMoreInvites", { parameters }, callback)
 end
@@ -187,7 +187,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_channel_invites(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchChannelInvites", { parameters }, callback)
 end
@@ -196,7 +196,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_more_channel_invites(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchMoreChannelInvites", { parameters }, callback)
 end
@@ -205,7 +205,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_sent_invites(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchSentInvites", { parameters }, callback)
 end
@@ -214,7 +214,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_more_sent_invites(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchMoreSentInvites", { parameters }, callback)
 end
@@ -223,7 +223,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.accept_join_request(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.acceptJoinRequest", { parameters }, callback)
 end
@@ -232,7 +232,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.reject_join_request(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.rejectJoinRequest", { parameters }, callback)
 end
@@ -241,7 +241,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_join_requests(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchJoinRequests", { parameters }, callback)
 end
@@ -250,7 +250,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_more_join_requests(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchMoreJoinRequests", { parameters }, callback)
 end
@@ -259,7 +259,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_sent_join_requests(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchSentJoinRequests", { parameters }, callback)
 end
@@ -268,7 +268,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_more_sent_join_requests(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchMoreSentJoinRequests", { parameters }, callback)
 end
@@ -277,7 +277,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.send_message(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.sendMessage", { parameters }, callback)
 end
@@ -286,7 +286,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.send_personal_message(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.sendPersonalMessage", { parameters }, callback)
 end
@@ -295,7 +295,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.send_feed_message(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.sendFeedMessage", { parameters }, callback)
 end
@@ -304,7 +304,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.edit_message(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.editMessage", { parameters }, callback)
 end
@@ -313,7 +313,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.delete_message(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.deleteMessage", { parameters }, callback)
 end
@@ -322,7 +322,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_messages(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchMessages", { parameters }, callback)
 end
@@ -331,7 +331,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_personal_messages(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchPersonalMessages", { parameters }, callback)
 end
@@ -340,7 +340,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_feed_messages(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchFeedMessages", { parameters }, callback)
 end
@@ -349,7 +349,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_more_messages(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchMoreMessages", { parameters }, callback)
 end
@@ -358,7 +358,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_more_personal_messages(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchMorePersonalMessages", { parameters }, callback)
 end
@@ -367,7 +367,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
 function M.fetch_more_feed_messages(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("channels.fetchMoreFeedMessages", { parameters }, callback)
 end

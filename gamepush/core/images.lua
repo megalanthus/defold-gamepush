@@ -7,7 +7,7 @@ local callbacks = require("gamepush.core.callbacks")
 ---@param parameters table
 ---@param callback function функция обратного вызова по результату загрузки изображения: callback(image)
 function M.upload(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("images.upload", { parameters }, callback)
 end
@@ -16,7 +16,7 @@ end
 ---@param parameters table
 ---@param callback function функция обратного вызова по результату загрузки изображения: callback(image)
 function M.upload_url(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("images.uploadUrl", { parameters }, callback)
 end
@@ -32,7 +32,7 @@ end
 ---@param parameters table
 ---@param callback function функция обратного вызова по результату получения изображений: callback(result)
 function M.fetch(parameters, callback)
-    helpers.check_table(parameters, "parameters")
+    helpers.check_table(parameters)
     helpers.check_callback(callback)
     core.call_api("images.fetch", { parameters }, callback)
 end
@@ -41,7 +41,7 @@ end
 ---@param parameters table
 ---@param callback function функция обратного вызова по результату получения изображений: callback(result)
 function M.fetch_more(parameters, callback)
-    helpers.check_table(parameters, "parameters")
+    helpers.check_table(parameters)
     helpers.check_callback(callback)
     core.call_api("images.fetchMore", { parameters }, callback)
 end

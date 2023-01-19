@@ -17,7 +17,7 @@ end
 ---Поделиться
 ---@param parameters table|nil
 function M.share(parameters)
-    helpers.check_table(parameters, "parameters")
+    helpers.check_table(parameters)
     core.call_api("socials.share", { parameters })
 end
 
@@ -30,7 +30,7 @@ end
 ---Опубликовать пост
 ---@param parameters table|nil
 function M.post(parameters)
-    helpers.check_table(parameters, "parameters")
+    helpers.check_table(parameters)
     core.call_api("socials.post", { parameters })
 end
 
@@ -43,7 +43,7 @@ end
 ---Пригласить друзей
 ---@param parameters table|nil
 function M.invite(parameters)
-    helpers.check_table(parameters, "parameters")
+    helpers.check_table(parameters)
     core.call_api("socials.invite", { parameters })
 end
 

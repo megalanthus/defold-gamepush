@@ -7,7 +7,7 @@ local callbacks = require("gamepush.core.callbacks")
 ---@param parameters table
 ---@param callback function функция обратного вызова по результату загрузки файла: callback(result)
 function M.upload(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("files.upload", { parameters }, callback)
 end
@@ -16,7 +16,7 @@ end
 ---@param parameters table
 ---@param callback function функция обратного вызова по результату загрузки файла: callback(result)
 function M.upload_url(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("files.uploadUrl", { parameters }, callback)
 end
@@ -25,7 +25,7 @@ end
 ---@param parameters table
 ---@param callback function функция обратного вызова по результату загрузки контента: callback(result)
 function M.upload_content(parameters, callback)
-    helpers.check_table_required(parameters, "parameters")
+    helpers.check_table_required(parameters)
     helpers.check_callback(callback)
     core.call_api("files.uploadContent", { parameters }, callback)
 end
@@ -52,7 +52,7 @@ end
 ---@param parameters table
 ---@param callback function функция обратного вызова по результату получения файлов: callback(result)
 function M.fetch(parameters, callback)
-    helpers.check_table(parameters, "parameters")
+    helpers.check_table(parameters)
     helpers.check_callback(callback)
     core.call_api("files.fetch", { parameters }, callback)
 end
@@ -61,7 +61,7 @@ end
 ---@param parameters table
 ---@param callback function функция обратного вызова по результату получения файлов: callback(result)
 function M.fetch_more(parameters, callback)
-    helpers.check_table(parameters, "parameters")
+    helpers.check_table(parameters)
     helpers.check_callback(callback)
     core.call_api("files.fetchMore", { parameters }, callback)
 end

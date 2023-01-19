@@ -25,7 +25,7 @@ end
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова по результату синхронизации: callback()
 function M.sync(parameters, callback)
-    helpers.check_table(parameters, "parameters")
+    helpers.check_table(parameters)
     helpers.check_callback(callback)
     core.call_api("player.sync", { parameters }, callback)
 end
@@ -135,10 +135,10 @@ function M.to_json()
 end
 
 ---Устанавливает состояние игрока из объекта
----@param player table таблица с данными игрока
-function M.from_json(player)
-    helpers.check_table(player, "player")
-    core.call_api("player.fromJSON", { player })
+---@param parameters table таблица с данными игрока
+function M.from_json(parameters)
+    helpers.check_table(parameters)
+    core.call_api("player.fromJSON", { parameters })
 end
 
 ---Сбрасывает состояние игрока на умолчательное
