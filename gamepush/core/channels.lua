@@ -219,6 +219,159 @@ function M.fetch_more_sent_invites(parameters, callback)
     core.call_api("channels.fetchMoreSentInvites", { parameters }, callback)
 end
 
+---Принять запрос на вступление
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.accept_join_request(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.acceptJoinRequest", { parameters }, callback)
+end
+
+---Отклонить запрос на вступление
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.reject_join_request(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.rejectJoinRequest", { parameters }, callback)
+end
+
+---Получить список входящих запросов на вступление в выбранном канале
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.fetch_join_requests(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.fetchJoinRequests", { parameters }, callback)
+end
+
+---Подгрузить список входящих запросов на вступление в выбранном канале
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.fetch_more_join_requests(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.fetchMoreJoinRequests", { parameters }, callback)
+end
+
+---Получить список разосланных запросов игроком на вступление
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.fetch_sent_join_requests(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.fetchSentJoinRequests", { parameters }, callback)
+end
+
+---Подгрузить список разосланных запросов игроком на вступление
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.fetch_more_sent_join_requests(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.fetchMoreSentJoinRequests", { parameters }, callback)
+end
+
+---Отправка сообщения
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.send_message(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.sendMessage", { parameters }, callback)
+end
+
+---Отправка личного сообщения
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.send_personal_message(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.sendPersonalMessage", { parameters }, callback)
+end
+
+---Отправка сообщения в фид
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.send_feed_message(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.sendFeedMessage", { parameters }, callback)
+end
+
+---Изменение сообщения
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.edit_message(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.editMessage", { parameters }, callback)
+end
+
+---Удаление сообщения
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.delete_message(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.deleteMessage", { parameters }, callback)
+end
+
+---Получить список сообщений в выбранном канале
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.fetch_messages(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.fetchMessages", { parameters }, callback)
+end
+
+---Получить список личных сообщений с другим игроком
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.fetch_personal_messages(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.fetchPersonalMessages", { parameters }, callback)
+end
+
+---Получить список сообщений в фиде игрока
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.fetch_feed_messages(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.fetchFeedMessages", { parameters }, callback)
+end
+
+---Подгрузить список сообщений в выбранном канале
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.fetch_more_messages(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.fetchMoreMessages", { parameters }, callback)
+end
+
+---Подгрузить список личных сообщений с другим игроком
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.fetch_more_personal_messages(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.fetchMorePersonalMessages", { parameters }, callback)
+end
+
+---Подгрузить список сообщений в фиде игрока
+---@param parameters table параметры
+---@param callback function функция обратного вызова: callback(result)
+function M.fetch_more_feed_messages(parameters, callback)
+    helpers.check_table_required(parameters, "parameters")
+    helpers.check_callback(callback)
+    core.call_api("channels.fetchMoreFeedMessages", { parameters }, callback)
+end
+
 M.callbacks = callbacks.channels
 
 return M
