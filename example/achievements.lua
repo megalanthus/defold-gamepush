@@ -7,6 +7,20 @@ local function unlock()
     end)
 end
 
+local function set_progress()
+    gamepush.achievements.set_progress({ tag = "my_achiv", progress = 25 }, function(result)
+        utils.to_log("Achievements set progress:", result)
+    end)
+end
+
+local function has()
+    utils.to_log(gamepush.achievements.has("my_achiv"))
+end
+
+local function get_progress()
+    utils.to_log(gamepush.achievements.get_progress(1960))
+end
+
 local function open()
     gamepush.achievements.open(function()
         utils.to_log("Achievements open")
@@ -21,6 +35,9 @@ end
 
 local M = {
     { name = "Unlock", callback = unlock },
+    { name = "Set progress", callback = set_progress },
+    { name = "Has", callback = has },
+    { name = "Get progress", callback = get_progress },
     { name = "Open", callback = open },
     { name = "Fetch", callback = fetch },
 }
@@ -30,6 +47,12 @@ gamepush.achievements.callbacks.unlock = function(achievement)
 end
 gamepush.achievements.callbacks.error_unlock = function(error)
     utils.to_console("achievement unlock error:", error)
+end
+gamepush.achievements.callbacks.progress = function(achievement)
+    utils.to_console("achievement progress:", achievement)
+end
+gamepush.achievements.callbacks.error_progress = function(error)
+    utils.to_console("achievement progress error:", error)
 end
 gamepush.achievements.callbacks.open = function()
     utils.to_console("open achievements")

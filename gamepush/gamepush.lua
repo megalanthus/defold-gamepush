@@ -1,6 +1,6 @@
 local M = {}
 
-local version = string.format("GamePush for Defold v1.1.0")
+local version = string.format("GamePush for Defold v1.1.1")
 local core = require("gamepush.core.core")
 local helpers = require("gamepush.core.helpers")
 local callbacks = require("gamepush.core.callbacks")
@@ -17,7 +17,11 @@ M.languages = {
     CHINESE = "zh",
     PORTUGUESE = "pt",
     KOREAN = "ko",
-    JAPANESE = "ja"
+    JAPANESE = "ja",
+    TURKISH = "tr",
+    ARAB = "ar",
+    HINDI = "hi",
+    INDONESIAN = "id"
 }
 
 ---Инициализация GamePush

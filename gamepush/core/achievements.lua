@@ -21,6 +21,31 @@ function M.unlock(parameters, callback)
     core.call_api("achievements.unlock", { parameters }, callback)
 end
 
+---Установить прогресс в достижении
+---@param parameters table параметры
+---@param callback function функция обратного вызова по результату установки прогресса в достижении: callback(result)
+function M.set_progress(parameters, callback)
+    helpers.check_table_required(parameters)
+    helpers.check_callback(callback)
+    core.call_api("achievements.setProgress", { parameters }, callback)
+end
+
+---Проверить есть ли у игрока достижение
+---@param id_or_tag string|number тег или идентификатор достижения
+---@return boolean результат
+function M.has(id_or_tag)
+    helpers.check_string_or_number(id_or_tag, "id_or_tag")
+    return core.call_api("achievements.has", id_or_tag) == true
+end
+
+---Получить прогресс достижения
+---@param id_or_tag string|number тег или идентификатор достижения
+---@return number результат
+function M.get_progress(id_or_tag)
+    helpers.check_string_or_number(id_or_tag, "id_or_tag")
+    return core.call_api("achievements.getProgress", id_or_tag)
+end
+
 ---Открыть достижения в оверлее
 ---@param callback function функция обратного вызова по результату открытия достижений: callback()
 function M.open(callback)

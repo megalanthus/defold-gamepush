@@ -1,5 +1,13 @@
 # Change Log
 
+# [v1.1.1](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.1.1) (2023-02-28)
+
+**Added**
+
+- New achievements functions.
+- New language codes.
+- Sharing options.
+
 # [v1.1.0](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.1.0) (2023-01-19)
 
 **Added**

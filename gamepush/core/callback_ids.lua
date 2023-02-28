@@ -131,10 +131,12 @@ local M = {
     achievements = {
         ["unlock"] = 0xF500,
         ["error:unlock"] = 0xF501,
-        ["open"] = 0xF502,
-        ["close"] = 0xF503,
-        ["fetch"] = 0xF504,
-        ["error:fetch"] = 0xF505
+        ["progress"] = 0xF502,
+        ["error:progress"] = 0xF503,
+        ["open"] = 0xF504,
+        ["close"] = 0xF505,
+        ["fetch"] = 0xF506,
+        ["error:fetch"] = 0xF507
     },
     variables = {
         ["fetch"] = 0xF600,

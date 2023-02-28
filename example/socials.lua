@@ -73,6 +73,19 @@ local function join()
     gamepush.socials.join_community()
 end
 
+local function make_share_url()
+    local url = gamepush.socials.make_share_url({ from = "player", gift = "gold", count = 100 })
+    utils.to_log(url)
+    pprint(url)
+end
+
+local function get_share_param()
+    local from = gamepush.socials.get_share_param("from")
+    local gift = gamepush.socials.get_share_param("gift")
+    local count = gamepush.socials.get_share_param("count")
+    utils.to_log(string.format("from: '%s'\ngift: '%s'\ncount: '%s'", from, gift, count))
+end
+
 local M = {
     { name = "Is supports share", callback = is_supports_share },
     { name = "Is supports native share", callback = is_supports_native_share },
@@ -87,6 +100,8 @@ local M = {
     { name = "Can join community", callback = can_join_community },
     { name = "Is supports native community join", callback = is_supports_native_community_join },
     { name = "Join", callback = join },
+    { name = "Make share url", callback = make_share_url },
+    { name = "Get share parameter", callback = get_share_param },
 }
 
 return M

@@ -25,6 +25,12 @@ function M.check_value(value)
     end
 end
 
+function M.check_string_or_number(parameter, parameter_name)
+    if type(parameter) ~= "string" and type(parameter) ~= "number" then
+        error(string.format("The '%s' must be a string or number!", parameter_name), 3)
+    end
+end
+
 function M.check_number_value(value, parameter_name, can_be_nil)
     if (can_be_nil and value == nil) or type(value) == "number" then
         return

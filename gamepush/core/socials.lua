@@ -64,4 +64,20 @@ function M.join_community()
     core.call_api("socials.joinCommunity")
 end
 
+---Создать ссылку для шаринга
+---@param parameters table|nil
+---@return string результат
+function M.make_share_url(parameters)
+    helpers.check_table_required(parameters)
+    return core.call_api("socials.makeShareUrl", { parameters })
+end
+
+---Считать параметры при заходе по ссылке
+---@param parameters table|nil
+---@return string результат
+function M.get_share_param(parameter)
+    helpers.check_string(parameter, "parameter")
+    return core.call_api("socials.getShareParam", { parameter })
+end
+
 return M
