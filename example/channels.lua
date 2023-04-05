@@ -56,6 +56,22 @@ local function fetch_more_channels()
     end)
 end
 
+local function open_chat()
+    gamepush.channels.open_chat()
+end
+
+local function open_chat_id()
+    gamepush.channels.open_chat({ id = 66 })
+end
+
+local function is_main_chat_enabled()
+    utils.to_log("Is main chat enabled:", gamepush.channels.is_main_chat_enabled())
+end
+
+local function main_chat_id()
+    utils.to_log("Main chat ID:", gamepush.channels.main_chat_id())
+end
+
 local function join()
     local parameters = { channelId = channel_id }
     gamepush.channels.join(parameters, function(result)
@@ -308,6 +324,10 @@ local M = {
     { name = "Fetch channel", callback = fetch_channel },
     { name = "Fetch channels", callback = fetch_channels },
     { name = "Fetch more channels", callback = fetch_more_channels },
+    { name = "Open chat", callback = open_chat },
+    { name = "Open chat ID", callback = open_chat_id },
+    { name = "Is main chat enabled", callback = is_main_chat_enabled },
+    { name = "Main chat ID", callback = main_chat_id },
     { name = "Join", callback = join },
     { name = "Cancel join", callback = cancel_join },
     { name = "Leave", callback = leave },
@@ -386,6 +406,16 @@ gamepush.channels.callbacks.fetch_more_channels = function(channel)
 end
 gamepush.channels.callbacks.error_fetch_more_channels = function(error)
     utils.to_console("Error fetch more channels:", error)
+end
+
+gamepush.channels.callbacks.open_chat = function()
+    utils.to_console("Open chat")
+end
+gamepush.channels.callbacks.close_chat = function()
+    utils.to_console("Close chat")
+end
+gamepush.channels.callbacks.error_open_chat = function(error)
+    utils.to_console("Error open chat:", error)
 end
 
 gamepush.channels.callbacks.join = function(result)

@@ -1,5 +1,11 @@
 # Change Log
 
+# [v1.1.2](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.1.2) (2023-04-05)
+
+**Added**
+
+- Ready-made chats.
+
 # [v1.1.1](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.1.1) (2023-02-28)
 
 **Added**

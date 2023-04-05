@@ -38,6 +38,10 @@ local M = {
         fetch_more_channels = nil,
         error_fetch_more_channels = nil,
 
+        open_chat = nil,
+        close_chat = nil,
+        error_open_chat = nil,
+
         join = nil,
         error_join = nil,
         event_join = nil,

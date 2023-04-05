@@ -57,6 +57,25 @@ function M.fetch_more_channels(parameters, callback)
     core.call_api("channels.fetchMoreChannels", { parameters }, callback)
 end
 
+---Вызов окна чата
+---@param parameters table параметры
+function M.open_chat(parameters)
+    helpers.check_table(parameters)
+    core.call_api("channels.openChat", { parameters })
+end
+
+---Проверка возможности показать главный чат
+---@return boolean результат
+function M.is_main_chat_enabled()
+    return core.call_api("channels.isMainChatEnabled") == true
+end
+
+---Получить ID главного чата
+---@return number результат
+function M.main_chat_id()
+    return core.call_api("channels.mainChatId")
+end
+
 ---Запрос на вступление в публичный канал
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова: callback(result)
