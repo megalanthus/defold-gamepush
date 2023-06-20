@@ -1,5 +1,12 @@
 # Change Log
 
+# [v1.1.3](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.1.3) (2023-06-20)
+
+**Added**
+
+- Error during initialization if id or token is not set.
+- Added platform constant VK play.
+
 # [v1.1.2](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.1.2) (2023-04-05)
 
 **Added**

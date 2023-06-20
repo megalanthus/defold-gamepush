@@ -86,6 +86,12 @@ function M.init(callback)
         error("Callback function must be specified!", 2)
     end
     helpers.check_callback(callback)
+    if sys.get_config_number("gamepush.id", -1) == -1 then
+        error("GamePush game id not set!")
+    end
+    if sys.get_config_string("gamepush.token", nil) == nil then
+        error("GamePush game token not set!")
+    end
     is_init = true
     gamepush.init(json.encode(callback_ids), on_event_callback, function(self, message, callback_id)
         callback(decode_result(message))

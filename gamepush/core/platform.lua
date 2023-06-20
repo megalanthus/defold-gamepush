@@ -12,6 +12,7 @@ M.VK = "VK"
 M.YANDEX = "YANDEX"
 M.GAMEPIX = "GAMEPIX"
 M.POKI = "POKI"
+M.VK_PLAY = "VK_PLAY"
 
 ---Тип платформы
 ---@return string

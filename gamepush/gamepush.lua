@@ -1,6 +1,6 @@
 local M = {}
 
-local version = string.format("GamePush for Defold v1.1.2")
+local version = string.format("GamePush for Defold v1.1.3")
 local core = require("gamepush.core.core")
 local helpers = require("gamepush.core.helpers")
 local callbacks = require("gamepush.core.callbacks")
