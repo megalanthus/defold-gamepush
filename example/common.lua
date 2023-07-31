@@ -91,14 +91,17 @@ local M = {
     { name = "Gameplay stop", callback = gameplay_stop }
 }
 
-gamepush.callbacks.change_orientation = function(orientation)
-    utils.to_console("Change orientation", orientation)
+gamepush.callbacks.change_orientation = function(portrait)
+    utils.to_console("Change orientation, is_portrait?:", portrait)
 end
 gamepush.callbacks.pause = function()
     utils.to_console("pause")
 end
 gamepush.callbacks.resume = function()
     utils.to_console("resume")
+end
+gamepush.callbacks.event_connect = function()
+    utils.to_console("notification of other windows")
 end
 
 return M

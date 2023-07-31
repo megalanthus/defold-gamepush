@@ -2,7 +2,8 @@ local M = {
     common = {
         change_orientation = nil,
         pause = nil,
-        resume = nil
+        resume = nil,
+        event_connect = nil
     },
     player = {
         sync = nil,

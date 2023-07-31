@@ -2,7 +2,8 @@ local M = {
     common = {
         ["change:orientation"] = 0xF000,
         ["pause"] = 0xF001,
-        ["resume"] = 0xF002
+        ["resume"] = 0xF002,
+        ["event:connect"] = 0xF003
     },
     player = {
         ["sync"] = 0xF100,
