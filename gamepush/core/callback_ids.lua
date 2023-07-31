@@ -192,6 +192,11 @@ local M = {
         ["error:give"] = 0xFD01,
         ["accept"] = 0xFD02,
         ["error:accept"] = 0xFD03
+    },
+    triggers = {
+        ["activate"] = 0xFE00,
+        ["claim"] = 0xFE01,
+        ["error:claim"] = 0xFE02
     }
 }
 

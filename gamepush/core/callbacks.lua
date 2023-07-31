@@ -192,6 +192,11 @@ local M = {
         error_give = nil,
         accept = nil,
         error_accept = nil
+    },
+    triggers = {
+        activate = nil,
+        claim = nil,
+        error_claim = nil
     }
 }
 
