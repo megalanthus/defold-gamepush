@@ -25,27 +25,27 @@ function M.activated_list()
 end
 
 ---Получение информации о награде
----@param trigger string тег или идентификатор награды
+---@param id_or_tag string тег или идентификатор награды
 ---@return table результат
-function M.get_trigger(trigger)
-    helpers.check_string(trigger, "trigger")
-    return core.call_api("triggers.getTrigger", trigger)
+function M.get_trigger(id_or_tag)
+    helpers.check_string(id_or_tag, "id_or_tag")
+    return core.call_api("triggers.getTrigger", id_or_tag)
 end
 
 ---Триггер активирован
----@param trigger string тег или идентификатор награды
+---@param id_or_tag string тег или идентификатор награды
 ---@return boolean результат
-function M.is_activated(trigger)
-    helpers.check_string(trigger, "trigger")
-    return core.call_api("triggers.isActivated", trigger) == true
+function M.is_activated(id_or_tag)
+    helpers.check_string(id_or_tag, "id_or_tag")
+    return core.call_api("triggers.isActivated", id_or_tag) == true
 end
 
 ---Награда начислена
----@param trigger string тег или идентификатор награды
+---@param id_or_tag string тег или идентификатор награды
 ---@return boolean результат
-function M.is_claimed(trigger)
-    helpers.check_string_or_number(trigger, "trigger")
-    return core.call_api("triggers.isClaimed", trigger) == true
+function M.is_claimed(id_or_tag)
+    helpers.check_string_or_number(id_or_tag, "id_or_tag")
+    return core.call_api("triggers.isClaimed", id_or_tag) == true
 end
 
 M.callbacks = callbacks.triggers

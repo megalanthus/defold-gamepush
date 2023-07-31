@@ -109,7 +109,7 @@ end
 ---@param value number добавляемое значение
 function M.add(key, value)
     helpers.check_key(key)
-    helpers.check_number_value(value, "value")
+    helpers.check_number(value, "value")
     core.call_api("player.add", { key, value })
 end
 

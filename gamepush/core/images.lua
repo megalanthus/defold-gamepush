@@ -54,8 +54,8 @@ end
 ---@return string возвращает ссылку на обрезанное изображение
 function M.resize(uri, width, height, crop)
     helpers.check_string(uri, "uri")
-    helpers.check_number_value(width, "width", true)
-    helpers.check_number_value(height, "height", true)
+    helpers.check_number(width, "width", true)
+    helpers.check_number(height, "height", true)
     helpers.check_boolean(crop, "crop", true)
     return core.call_api("images.resize", { uri, width, height, crop })
 end

@@ -193,6 +193,18 @@ local M = {
         accept = nil,
         error_accept = nil
     },
+    schedulers = {
+        claim_day = nil,
+        error_claim_day = nil,
+        claim_day_additional = nil,
+        error_claim_day_additional = nil,
+        claim_all_day = nil,
+        error_claim_all_day = nil,
+        claim_all_days = nil,
+        error_claim_all_days = nil,
+        join = nil,
+        error_join = nil
+    },
     triggers = {
         activate = nil,
         claim = nil,

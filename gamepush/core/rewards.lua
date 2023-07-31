@@ -34,35 +34,35 @@ function M.given_list()
 end
 
 ---Получение информации о награде
----@param reward string|number тег или идентификатор награды
+---@param id_or_tag string|number тег или идентификатор награды
 ---@return table результат
-function M.get_reward(reward)
-    helpers.check_string_or_number(reward, "reward")
-    return core.call_api("rewards.getReward", reward)
+function M.get_reward(id_or_tag)
+    helpers.check_string_or_number(id_or_tag, "id_or_tag")
+    return core.call_api("rewards.getReward", id_or_tag)
 end
 
 ---Проверка выдачи награды
----@param reward string|number тег или идентификатор награды
+---@param id_or_tag string|number тег или идентификатор награды
 ---@return boolean результат
-function M.has(reward)
-    helpers.check_string_or_number(reward, "reward")
-    return core.call_api("rewards.has", reward) == true
+function M.has(id_or_tag)
+    helpers.check_string_or_number(id_or_tag, "id_or_tag")
+    return core.call_api("rewards.has", id_or_tag) == true
 end
 
 ---Проверка принятия награды
----@param reward string|number тег или идентификатор награды
+---@param id_or_tag string|number тег или идентификатор награды
 ---@return boolean результат
-function M.has_accepted(reward)
-    helpers.check_string_or_number(reward, "reward")
-    return core.call_api("rewards.hasAccepted", reward) == true
+function M.has_accepted(id_or_tag)
+    helpers.check_string_or_number(id_or_tag, "id_or_tag")
+    return core.call_api("rewards.hasAccepted", id_or_tag) == true
 end
 
 ---Награда выдана, но не получена
----@param reward string|number тег или идентификатор награды
+---@param id_or_tag string|number тег или идентификатор награды
 ---@return boolean результат
-function M.has_unaccepted(reward)
-    helpers.check_string_or_number(reward, "reward")
-    return core.call_api("rewards.hasUnaccepted", reward) == true
+function M.has_unaccepted(id_or_tag)
+    helpers.check_string_or_number(id_or_tag, "id_or_tag")
+    return core.call_api("rewards.hasUnaccepted", id_or_tag) == true
 end
 
 M.callbacks = callbacks.rewards

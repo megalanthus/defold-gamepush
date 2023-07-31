@@ -23,6 +23,7 @@ local buttons = {
     { name = "Channels", callback = switch_section, section = require("example.channels") },
     { name = "Ads", callback = switch_section, section = require("example.ads") },
     { name = "Rewards", callback = switch_section, section = require("example.rewards") },
+    { name = "Schedulers", callback = switch_section, section = require("example.schedulers") },
     { name = "Triggers", callback = switch_section, section = require("example.triggers") },
     { name = "Achievements", callback = switch_section, section = require("example.achievements") },
     { name = "Socials", callback = switch_section, section = require("example.socials") },

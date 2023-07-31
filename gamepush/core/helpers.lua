@@ -31,7 +31,7 @@ function M.check_string_or_number(parameter, parameter_name)
     end
 end
 
-function M.check_number_value(value, parameter_name, can_be_nil)
+function M.check_number(value, parameter_name, can_be_nil)
     if (can_be_nil and value == nil) or type(value) == "number" then
         return
     end

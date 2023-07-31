@@ -193,6 +193,18 @@ local M = {
         ["accept"] = 0xFD02,
         ["error:accept"] = 0xFD03
     },
+    schedulers = {
+        ["claimDay"] = 0xFD10,
+        ["error:claimDay"] = 0xFD11,
+        ["claimDayAdditional"] = 0xFD12,
+        ["error:claimDayAdditional"] = 0xFD13,
+        ["claimAllDay"] = 0xFD14,
+        ["error:claimAllDay"] = 0xFD15,
+        ["claimAllDays"] = 0xFD16,
+        ["error:claimAllDays"] = 0xFD17,
+        ["join"] = 0xFD18,
+        ["error:join"] = 0xFD19
+    },
     triggers = {
         ["activate"] = 0xFE00,
         ["claim"] = 0xFE01,
