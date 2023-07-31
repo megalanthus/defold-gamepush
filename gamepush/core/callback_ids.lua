@@ -186,6 +186,12 @@ local M = {
         ["open"] = 0xFB00,
         ["close"] = 0xFB01,
         ["change"] = 0xFB02
+    },
+    rewards = {
+        ["give"] = 0xFD00,
+        ["error:give"] = 0xFD01,
+        ["accept"] = 0xFD02,
+        ["error:accept"] = 0xFD03
     }
 }
 

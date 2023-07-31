@@ -31,6 +31,7 @@ end
 ---@param product string|number тег или идентификатор продукта
 ---@return boolean результат
 function M.has(product)
+    helpers.check_string_or_number(product, "product")
     return core.call_api("payments.has", product) == true
 end
 

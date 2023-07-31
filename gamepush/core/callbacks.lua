@@ -186,6 +186,12 @@ local M = {
         open = nil,
         close = nil,
         change = nil
+    },
+    rewards = {
+        give = nil,
+        error_give = nil,
+        accept = nil,
+        error_accept = nil
     }
 }
 
