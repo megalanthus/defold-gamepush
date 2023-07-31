@@ -179,6 +179,7 @@ function M.get_field_variant_name(key, value)
     return core.call_api("player.getFieldVariantName", { key, value })
 end
 
+M.stats = require("gamepush.core.player_stats")
 M.callbacks = callbacks.player
 
 return M

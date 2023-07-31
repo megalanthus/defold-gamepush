@@ -129,6 +129,22 @@ local function fetch()
     end)
 end
 
+local function active_days()
+    utils.to_log("Active days:", gamepush.player.stats.active_days())
+end
+
+local function active_days_consecutive()
+    utils.to_log("Active days consecutive:", gamepush.player.stats.active_days_consecutive())
+end
+
+local function playtime_today()
+    utils.to_log("Playtime today:", gamepush.player.stats.playtime_today())
+end
+
+local function playtime_all()
+    utils.to_log("Playtime all:", gamepush.player.stats.playtime_all())
+end
+
 local M = {
     { name = "Is logged in", callback = is_logged_in },
     { name = "Has any credentials", callback = has_any_credentials },
@@ -156,7 +172,11 @@ local M = {
     { name = "Get field", callback = get_field },
     { name = "Get field name", callback = get_field_name },
     { name = "Get field variant name", callback = get_field_variant_name },
-    { name = "Fetch players", callback = fetch }
+    { name = "Fetch players", callback = fetch },
+    { name = "Active days", callback = active_days },
+    { name = "Active days consecutive", callback = active_days_consecutive },
+    { name = "Playtime today", callback = playtime_today },
+    { name = "Playtime all", callback = playtime_all },
 }
 
 gamepush.player.callbacks.sync = function(success)
