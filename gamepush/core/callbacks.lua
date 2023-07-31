@@ -119,6 +119,33 @@ local M = {
         fetch_more_messages = nil,
         error_fetch_more_messages = nil
     },
+    events = {
+        join = nil,
+        error_join = nil
+    },
+    rewards = {
+        give = nil,
+        error_give = nil,
+        accept = nil,
+        error_accept = nil
+    },
+    schedulers = {
+        claim_day = nil,
+        error_claim_day = nil,
+        claim_day_additional = nil,
+        error_claim_day_additional = nil,
+        claim_all_day = nil,
+        error_claim_all_day = nil,
+        claim_all_days = nil,
+        error_claim_all_days = nil,
+        join = nil,
+        error_join = nil
+    },
+    triggers = {
+        activate = nil,
+        claim = nil,
+        error_claim = nil
+    },
     ads = {
         start = nil,
         close = nil,
@@ -186,29 +213,6 @@ local M = {
         open = nil,
         close = nil,
         change = nil
-    },
-    rewards = {
-        give = nil,
-        error_give = nil,
-        accept = nil,
-        error_accept = nil
-    },
-    schedulers = {
-        claim_day = nil,
-        error_claim_day = nil,
-        claim_day_additional = nil,
-        error_claim_day_additional = nil,
-        claim_all_day = nil,
-        error_claim_all_day = nil,
-        claim_all_days = nil,
-        error_claim_all_days = nil,
-        join = nil,
-        error_join = nil
-    },
-    triggers = {
-        activate = nil,
-        claim = nil,
-        error_claim = nil
     }
 }
 

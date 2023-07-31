@@ -119,96 +119,100 @@ local M = {
         ["fetchMoreMessages"] = 0xF356,
         ["error:fetchMoreMessages"] = 0xF357
     },
-    ads = {
-        ["start"] = 0xF400,
-        ["close"] = 0xF401,
-        ["fullscreen:start"] = 0xF402,
-        ["fullscreen:close"] = 0xF403,
-        ["preloader:start"] = 0xF404,
-        ["preloader:close"] = 0xF405,
-        ["rewarded:start"] = 0xF406,
-        ["rewarded:close"] = 0xF407,
-        ["rewarded:reward"] = 0xF408,
-        ["sticky:start"] = 0xF409,
-        ["sticky:render"] = 0xF40A,
-        ["sticky:refresh"] = 0xF40B,
-        ["sticky:close"] = 0xF40C
-    },
-    achievements = {
-        ["unlock"] = 0xF500,
-        ["error:unlock"] = 0xF501,
-        ["progress"] = 0xF502,
-        ["error:progress"] = 0xF503,
-        ["open"] = 0xF504,
-        ["close"] = 0xF505,
-        ["fetch"] = 0xF506,
-        ["error:fetch"] = 0xF507
-    },
-    variables = {
-        ["fetch"] = 0xF600,
-        ["error:fetch"] = 0xF601
-    },
-    gamesCollections = {
-        ["open"] = 0xF700,
-        ["close"] = 0xF701,
-        ["fetch"] = 0xF702,
-        ["error:fetch"] = 0xF703
-    },
-    images = {
-        ["upload"] = 0xF800,
-        ["error:upload"] = 0xF801,
-        ["choose"] = 0xF802,
-        ["error:choose"] = 0xF803,
-        ["fetch"] = 0xF804,
-        ["error:fetch"] = 0xF805,
-        ["fetchMore"] = 0xF806,
-        ["error:fetchMore"] = 0xF807
-    },
-    files = {
-        ["upload"] = 0xF900,
-        ["error:upload"] = 0xF901,
-        ["loadContent"] = 0xF902,
-        ["error:loadContent"] = 0xF903,
-        ["choose"] = 0xF904,
-        ["error:choose"] = 0xF905,
-        ["fetch"] = 0xF906,
-        ["error:fetch"] = 0xF907,
-        ["fetchMore"] = 0xF908,
-        ["error:fetchMore"] = 0xF909
-    },
-    documents = {
-        ["open"] = 0xFA00,
-        ["close"] = 0xFA01,
-        ["fetch"] = 0xFA02,
-        ["error:fetch"] = 0xFA03
-    },
-    fullscreen = {
-        ["open"] = 0xFB00,
-        ["close"] = 0xFB01,
-        ["change"] = 0xFB02
+    events = {
+        ["join"] = 0xF400,
+        ["error:join"] = 0xF401
     },
     rewards = {
-        ["give"] = 0xFD00,
-        ["error:give"] = 0xFD01,
-        ["accept"] = 0xFD02,
-        ["error:accept"] = 0xFD03
+        ["give"] = 0xF410,
+        ["error:give"] = 0xF411,
+        ["accept"] = 0xF412,
+        ["error:accept"] = 0xF413
     },
     schedulers = {
-        ["claimDay"] = 0xFD10,
-        ["error:claimDay"] = 0xFD11,
-        ["claimDayAdditional"] = 0xFD12,
-        ["error:claimDayAdditional"] = 0xFD13,
-        ["claimAllDay"] = 0xFD14,
-        ["error:claimAllDay"] = 0xFD15,
-        ["claimAllDays"] = 0xFD16,
-        ["error:claimAllDays"] = 0xFD17,
-        ["join"] = 0xFD18,
-        ["error:join"] = 0xFD19
+        ["claimDay"] = 0xF420,
+        ["error:claimDay"] = 0xF421,
+        ["claimDayAdditional"] = 0xF422,
+        ["error:claimDayAdditional"] = 0xF423,
+        ["claimAllDay"] = 0xF424,
+        ["error:claimAllDay"] = 0xF425,
+        ["claimAllDays"] = 0xF426,
+        ["error:claimAllDays"] = 0xF427,
+        ["join"] = 0xF428,
+        ["error:join"] = 0xF429
     },
     triggers = {
-        ["activate"] = 0xFE00,
-        ["claim"] = 0xFE01,
-        ["error:claim"] = 0xFE02
+        ["activate"] = 0xF430,
+        ["claim"] = 0xF431,
+        ["error:claim"] = 0xF432
+    },
+    ads = {
+        ["start"] = 0xF500,
+        ["close"] = 0xF501,
+        ["fullscreen:start"] = 0xF502,
+        ["fullscreen:close"] = 0xF503,
+        ["preloader:start"] = 0xF504,
+        ["preloader:close"] = 0xF505,
+        ["rewarded:start"] = 0xF506,
+        ["rewarded:close"] = 0xF507,
+        ["rewarded:reward"] = 0xF508,
+        ["sticky:start"] = 0xF509,
+        ["sticky:render"] = 0xF50A,
+        ["sticky:refresh"] = 0xF50B,
+        ["sticky:close"] = 0xF50C
+    },
+    achievements = {
+        ["unlock"] = 0xF600,
+        ["error:unlock"] = 0xF601,
+        ["progress"] = 0xF602,
+        ["error:progress"] = 0xF603,
+        ["open"] = 0xF604,
+        ["close"] = 0xF605,
+        ["fetch"] = 0xF606,
+        ["error:fetch"] = 0xF607
+    },
+    variables = {
+        ["fetch"] = 0xF700,
+        ["error:fetch"] = 0xF701
+    },
+    gamesCollections = {
+        ["open"] = 0xF800,
+        ["close"] = 0xF801,
+        ["fetch"] = 0xF802,
+        ["error:fetch"] = 0xF803
+    },
+    images = {
+        ["upload"] = 0xF900,
+        ["error:upload"] = 0xF901,
+        ["choose"] = 0xF902,
+        ["error:choose"] = 0xF903,
+        ["fetch"] = 0xF904,
+        ["error:fetch"] = 0xF905,
+        ["fetchMore"] = 0xF906,
+        ["error:fetchMore"] = 0xF907
+    },
+    files = {
+        ["upload"] = 0xFA00,
+        ["error:upload"] = 0xFA01,
+        ["loadContent"] = 0xFA02,
+        ["error:loadContent"] = 0xFA03,
+        ["choose"] = 0xFA04,
+        ["error:choose"] = 0xFA05,
+        ["fetch"] = 0xFA06,
+        ["error:fetch"] = 0xFA07,
+        ["fetchMore"] = 0xFA08,
+        ["error:fetchMore"] = 0xFA09
+    },
+    documents = {
+        ["open"] = 0xFB00,
+        ["close"] = 0xFB01,
+        ["fetch"] = 0xFB02,
+        ["error:fetch"] = 0xFB03
+    },
+    fullscreen = {
+        ["open"] = 0xFC00,
+        ["close"] = 0xFC01,
+        ["change"] = 0xFC02
     }
 }
 
