@@ -45,16 +45,22 @@ function M.change_language(language_code)
     core.call_api("changeLanguage", language_code)
 end
 
----В разработке?
----@return boolean
-function M.is_dev()
-    return core.call_api("isDev") == true
-end
-
 ---Мобильное устройство?
 ---@return boolean
 function M.is_mobile()
     return core.call_api("isMobile") == true
+end
+
+---Режим экрана: портретный/альбомный?
+---@return boolean
+function M.is_portrait()
+    return core.call_api("isPortrait") == true
+end
+
+---В разработке?
+---@return boolean
+function M.is_dev()
+    return core.call_api("isDev") == true
 end
 
 ---Хост игры в доверенных источниках?

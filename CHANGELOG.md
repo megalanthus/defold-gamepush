@@ -7,6 +7,7 @@
 - Error during initialization if id or token is not set.
 - Added platform constant VK play.
 - Added player statistics.
+- Screen mode: portrait/landscapes.
 
 # [v1.1.2](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.1.2) (2023-04-05)
 

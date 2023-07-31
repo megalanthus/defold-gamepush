@@ -28,6 +28,10 @@ local function is_mobile()
     utils.to_log("Is mobile: " .. tostring(gamepush.is_mobile()))
 end
 
+local function is_portrait()
+    utils.to_log("Is portrait: " .. tostring(gamepush.is_portrait()))
+end
+
 local function is_dev()
     utils.to_log("Is dev: " .. tostring(gamepush.is_dev()))
 end
@@ -74,6 +78,7 @@ local M = {
     { name = "Set language ru", callback = set_language_ru },
     { name = "Set language en", callback = set_language_en },
     { name = "Is mobile?", callback = is_mobile },
+    { name = "Is portrait?", callback = is_portrait },
     { name = "Is dev?", callback = is_dev },
     { name = "Is allowed origin?", callback = is_allowed_origin },
     { name = "Get server time", callback = get_server_time },
@@ -86,6 +91,9 @@ local M = {
     { name = "Gameplay stop", callback = gameplay_stop }
 }
 
+gamepush.callbacks.change_orientation = function(orientation)
+    utils.to_console("Change orientation", orientation)
+end
 gamepush.callbacks.pause = function()
     utils.to_console("pause")
 end

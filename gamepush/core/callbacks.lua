@@ -1,5 +1,6 @@
 local M = {
     common = {
+        change_orientation = nil,
         pause = nil,
         resume = nil
     },
