@@ -9,6 +9,18 @@ function M.is_available()
     return core.call_api("payments.isAvailable") == true
 end
 
+---Список продуктов
+---@return table результат
+function M.products()
+    return core.call_api("payments.products")
+end
+
+---Список покупок
+---@return table результат
+function M.purchases()
+    return core.call_api("payments.purchases")
+end
+
 ---Покупка
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова по результату покупки продукта: callback(result)

@@ -1,6 +1,18 @@
 local gamepush = require("gamepush.gamepush")
 local utils = require("example.utils")
 
+local function groups_list()
+    utils.to_log("Groups list:", gamepush.achievements.groups_list())
+end
+
+local function list()
+    utils.to_log("List:", gamepush.achievements.list())
+end
+
+local function unlocked_list()
+    utils.to_log("Unlocked list:", gamepush.achievements.unlocked_list())
+end
+
 local function unlock()
     gamepush.achievements.unlock({ tag = "my_achiv" }, function(result)
         utils.to_log("Achievements unlock:", result)
@@ -34,6 +46,9 @@ local function fetch()
 end
 
 local M = {
+    { name = "Groups list", callback = groups_list },
+    { name = "List", callback = list },
+    { name = "Unlocked list", callback = unlocked_list },
     { name = "Unlock", callback = unlock },
     { name = "Set progress", callback = set_progress },
     { name = "Has", callback = has },

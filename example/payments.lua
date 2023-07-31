@@ -5,6 +5,14 @@ local function is_available()
     utils.to_log("Payments is available:", gamepush.payments.is_available())
 end
 
+local function products()
+    utils.to_log("Products:", gamepush.payments.products())
+end
+
+local function purchases()
+    utils.to_log("Purchases:", gamepush.payments.purchases())
+end
+
 local function purchase()
     gamepush.payments.purchase({ id = 749 }, function(result)
         utils.to_log("Payments purchase:", result)
@@ -45,6 +53,8 @@ end
 
 local M = {
     { name = "Is available", callback = is_available },
+    { name = "Products", callback = products },
+    { name = "Purchases", callback = purchases },
     { name = "Purchase", callback = purchase },
     { name = "Consume", callback = consume },
     { name = "Has", callback = has },

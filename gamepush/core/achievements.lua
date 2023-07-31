@@ -12,6 +12,24 @@ M.rare = {
     MYTHIC = "MYTHIC"
 }
 
+---Список групп достижений
+---@return table результат
+function M.groups_list()
+    return core.call_api("achievements.groupsList")
+end
+
+---Список достижений
+---@return table результат
+function M.list()
+    return core.call_api("achievements.list")
+end
+
+---Список разблокированных достижений
+---@return table результат
+function M.unlocked_list()
+    return core.call_api("achievements.unlockedList")
+end
+
 ---Разблокировать достижение
 ---@param parameters table параметры
 ---@param callback function функция обратного вызова по результату разблокировки достижения: callback(result)
