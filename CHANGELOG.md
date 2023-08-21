@@ -1,5 +1,12 @@
 # Change Log
 
+# [v1.1.4](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.1.4) (2023-08-21)
+
+**Changed**
+
+- Set background fix.
+- Add parameters for show_fullscreen and show_rewarded_video.
+
 # [v1.1.3](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.1.3) (2023-07-31)
 
 **Added**

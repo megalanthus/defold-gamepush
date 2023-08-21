@@ -1,5 +1,15 @@
 <html>
 <head>
+    {{^DEFOLD_SCALE_MODE_IS_NO_SCALE}}
+    <style type='text/css'>
+        body {
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+    </style>
+    {{/DEFOLD_SCALE_MODE_IS_NO_SCALE}}
     {{#project.title}}
     <meta name="og:title" content="{{project.title}}">
     {{/project.title}}

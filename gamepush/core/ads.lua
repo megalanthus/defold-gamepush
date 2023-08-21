@@ -59,9 +59,11 @@ end
 
 ---Показать полноэкранную рекламу
 ---@param callback function функция обратного вызова по завершению рекламы: callback(result)
-function M.show_fullscreen(callback)
+---@param parameters table параметры
+function M.show_fullscreen(callback, parameters)
     helpers.check_callback(callback)
-    core.call_api("ads.showFullscreen", nil, callback)
+    helpers.check_table(parameters)
+    core.call_api("ads.showFullscreen", { parameters }, callback)
 end
 
 ---Показать баннерную рекламу (preloader)
@@ -73,9 +75,11 @@ end
 
 ---Показать рекламу за вознаграждение
 ---@param callback function функция обратного вызова по завершению рекламы: callback(result)
-function M.show_rewarded_video(callback)
+---@param parameters table параметры
+function M.show_rewarded_video(callback, parameters)
     helpers.check_callback(callback)
-    core.call_api("ads.showRewardedVideo", nil, callback)
+    helpers.check_table(parameters)
+    core.call_api("ads.showRewardedVideo", { parameters }, callback)
 end
 
 ---Показать баннер

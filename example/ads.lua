@@ -43,6 +43,12 @@ local function show_fullscreen()
     end)
 end
 
+local function show_fullscreen_countdown()
+    gamepush.ads.show_fullscreen(function(result)
+        utils.to_log("show fullscreen: " .. tostring(result))
+    end, { showCountdownOverlay = true })
+end
+
 local function show_preloader()
     gamepush.ads.show_preloader(function(result)
         utils.to_log("show preloader: " .. tostring(result))
@@ -53,6 +59,12 @@ local function show_rewarded()
     gamepush.ads.show_rewarded_video(function(result)
         utils.to_log("show rewarded: " .. tostring(result))
     end)
+end
+
+local function show_rewarded_failed()
+    gamepush.ads.show_rewarded_video(function(result)
+        utils.to_log("show rewarded: " .. tostring(result))
+    end, { showRewardedFailedOverlay = true })
 end
 
 local function show_sticky()
@@ -84,8 +96,10 @@ local M = {
     { name = "Is rewarded playing", callback = is_rewarded_playing },
     { name = "Is preloader playing", callback = is_preloader_playing },
     { name = "Show fullscreen", callback = show_fullscreen },
+    { name = "Show fullscreen with countdown", callback = show_fullscreen_countdown },
     { name = "Show preloader", callback = show_preloader },
     { name = "Show rewarded", callback = show_rewarded },
+    { name = "Show rewarded with failed", callback = show_rewarded_failed },
     { name = "Show sticky", callback = show_sticky },
     { name = "Refresh sticky", callback = refresh_sticky },
     { name = "Close sticky", callback = close_sticky },

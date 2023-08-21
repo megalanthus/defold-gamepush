@@ -1,6 +1,6 @@
 local M = {}
 
-local version = string.format("GamePush for Defold v1.1.3")
+local version = string.format("GamePush for Defold v1.1.4")
 local core = require("gamepush.core.core")
 local helpers = require("gamepush.core.helpers")
 local callbacks = require("gamepush.core.callbacks")
@@ -95,7 +95,7 @@ end
 ---@param parameters table параметры
 function M.set_background(parameters)
     helpers.check_table_required(parameters)
-    core.call_api("setBackground", parameters)
+    core.call_api("setBackground", { parameters })
 end
 
 ---Старт игры
