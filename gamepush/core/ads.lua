@@ -57,6 +57,24 @@ function M.is_preloader_playing()
     return core.call_api("ads.isPreloaderPlaying") == true
 end
 
+---Включен оверлей обратного отсчета перед показом фулскрин рекламы
+---@return boolean
+function M.is_countdown_overlay_enabled()
+    return core.call_api("ads.isCountdownOverlayEnabled") == true
+end
+
+---Включен оверлей при неудачном показе rewarded video
+---@return boolean
+function M.is_rewarded_failed_overlay_enabled()
+    return core.call_api("ads.isRewardedFailedOverlayEnabled") == true
+end
+
+---Можно ли на площадке показывать фулскрин рекламу перед началом геймплея
+---@return boolean
+function M.can_show_fullscreen_before_gameplay()
+    return core.call_api("ads.canShowFullscreenBeforeGamePlay") == true
+end
+
 ---Показать полноэкранную рекламу
 ---@param callback function функция обратного вызова по завершению рекламы: callback(result)
 ---@param parameters table параметры

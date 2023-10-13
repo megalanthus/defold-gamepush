@@ -37,6 +37,18 @@ local function is_preloader_playing()
     utils.to_log(gamepush.ads.is_preloader_playing())
 end
 
+local function is_countdown_overlay_enabled()
+    utils.to_log(gamepush.ads.is_countdown_overlay_enabled())
+end
+
+local function is_rewarded_failed_overlay_enabled()
+    utils.to_log(gamepush.ads.is_rewarded_failed_overlay_enabled())
+end
+
+local function can_show_fullscreen_before_gameplay()
+    utils.to_log(gamepush.ads.can_show_fullscreen_before_gameplay())
+end
+
 local function show_fullscreen()
     gamepush.ads.show_fullscreen(function(result)
         utils.to_log("show fullscreen: " .. tostring(result))
@@ -95,6 +107,9 @@ local M = {
     { name = "Is fullscreen playing", callback = is_fullscreen_playing },
     { name = "Is rewarded playing", callback = is_rewarded_playing },
     { name = "Is preloader playing", callback = is_preloader_playing },
+    { name = "Is countdown overlay enabled", callback = is_countdown_overlay_enabled },
+    { name = "Is rewarded failed overlay enabled", callback = is_rewarded_failed_overlay_enabled },
+    { name = "Can show fullscreen before gameplay", callback = can_show_fullscreen_before_gameplay },
     { name = "Show fullscreen", callback = show_fullscreen },
     { name = "Show fullscreen with countdown", callback = show_fullscreen_countdown },
     { name = "Show preloader", callback = show_preloader },

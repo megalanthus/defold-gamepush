@@ -1,6 +1,6 @@
 local M = {}
 
-local version = string.format("GamePush for Defold v1.1.4")
+local version = string.format("GamePush for Defold v1.1.5")
 local core = require("gamepush.core.core")
 local helpers = require("gamepush.core.helpers")
 local callbacks = require("gamepush.core.callbacks")
@@ -103,6 +103,11 @@ function M.game_start()
     core.call_api("gameStart")
 end
 
+---Запущена ли игра (загрузка завершена)
+function M.is_game_started()
+    return core.call_api("isGameStarted") == true
+end
+
 ---Запуск геймплея
 function M.gameplay_start()
     core.call_api("gameplayStart")
@@ -111,6 +116,11 @@ end
 ---Завершение геймплея
 function M.gameplay_stop()
     core.call_api("gameplayStop")
+end
+
+---Геймплей запущен?
+function M.is_game_play()
+    return core.call_api("isGameplay") == true
 end
 
 ---Возвращает версию плагина
@@ -140,5 +150,6 @@ M.files = require("gamepush.core.files")
 M.documents = require("gamepush.core.documents")
 M.analytics = require("gamepush.core.analytics")
 M.fullscreen = require("gamepush.core.fullscreen")
+M.logger = require("gamepush.core.logger")
 
 return M

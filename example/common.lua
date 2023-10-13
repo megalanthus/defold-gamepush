@@ -41,11 +41,11 @@ local function is_allowed_origin()
 end
 
 local function get_server_time()
-    utils.to_log("get server time: " .. gamepush.get_server_time())
+    utils.to_log("Get server time: " .. gamepush.get_server_time())
 end
 
 local function is_paused()
-    utils.to_log("is paused: " .. tostring(gamepush.is_paused()))
+    utils.to_log("Is paused: " .. tostring(gamepush.is_paused()))
 end
 
 local function pause()
@@ -64,12 +64,20 @@ local function game_start()
     gamepush.game_start()
 end
 
+local function is_game_started()
+    utils.to_log("Is game started: " .. tostring(gamepush.is_game_started()))
+end
+
 local function gameplay_start()
     gamepush.gameplay_start()
 end
 
 local function gameplay_stop()
     gamepush.gameplay_stop()
+end
+
+local function is_game_play()
+    utils.to_log("Is gameplay: " .. tostring(gamepush.is_game_play()))
 end
 
 local M = {
@@ -87,8 +95,10 @@ local M = {
     { name = "Resume", callback = resume },
     { name = "Set background", callback = set_background },
     { name = "Game start", callback = game_start },
+    { name = "Is game started", callback = is_game_started },
     { name = "Gameplay start", callback = gameplay_start },
-    { name = "Gameplay stop", callback = gameplay_stop }
+    { name = "Gameplay stop", callback = gameplay_stop },
+    { name = "Is gameplay", callback = is_game_play }
 }
 
 gamepush.callbacks.change_orientation = function(portrait)

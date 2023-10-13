@@ -1,5 +1,23 @@
 # Change Log
 
+# [v1.1.5](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.1.5) (2023-10-13)
+
+**Added**
+
+- Platform constant WG_PLAYGROUND
+- Function is_game_started
+- Function is_game_play
+- Function is_countdown_overlay_enabled
+- Function is_rewarded_failed_overlay_enabled
+- Function can_show_fullscreen_before_gameplay
+- Reviews
+- Shortcut / Favorites
+- Logger
+
+**Fixed**
+
+- serverTime in mock.
+
 # [v1.1.4](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.1.4) (2023-08-21)
 
 **Changed**

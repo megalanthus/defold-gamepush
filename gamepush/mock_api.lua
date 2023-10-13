@@ -40,7 +40,9 @@ end
 M["isDev"] = true
 M["isMobile"] = false
 M["isAllowedOrigin"] = true
-M["serverTime"] = os.date("%FT%T")
+M["serverTime"] = function()
+    return os.date("%FT%T")
+end
 M["isPaused"] = false
 M["pause"] = function()
     M["isPaused"] = true

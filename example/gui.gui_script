@@ -36,6 +36,7 @@ local buttons = {
     { name = "Analytics", callback = switch_section, section = require("example.analytics") },
     { name = "Fullscreen", callback = switch_section, section = require("example.fullscreen") },
     { name = "Native platform", callback = switch_section, section = require("example.native_platform") },
+    { name = "Logger", callback = switch_section, section = require("example.logger") },
 }
 
 function init(self)
