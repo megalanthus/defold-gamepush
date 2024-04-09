@@ -4,7 +4,7 @@
 
 # GamePush for Defold
 
-[GamePush](https://gamepush.com) (ранее GameScore) расширение для движка [Defold](https://defold.com) (для версии
+[GamePush](https://gamepush.com/?r=NDU=) (ранее GameScore) расширение для движка [Defold](https://defold.com) (для версии
 Defold >= 1.4.0). GamePush это сервис для удобной публикации HTML5 игр на разных платформах с одним SDK. Сервисом
 поддерживается локальная отладка игры.
 
