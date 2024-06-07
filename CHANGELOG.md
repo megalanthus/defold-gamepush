@@ -1,5 +1,11 @@
 # Change Log
 
+# [v1.2.0](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.2.0) (2024-06-07)
+
+**Fixed**
+
+- Fix for Defold v.1.8.0
+
 # [v1.1.5](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.1.5) (2023-10-13)
 
 **Added**

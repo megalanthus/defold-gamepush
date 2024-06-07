@@ -21,8 +21,8 @@ let LibraryGamePush = {
                 let message = data === undefined || data === null ? "" :
                     typeof (data) === "object" ? JSON.stringify({object: data}) :
                         JSON.stringify({value: data});
-                let msg = allocate(intArrayFromString(message), ALLOC_NORMAL);
-                {{{makeDynCall("viii", "GamePushLib._callback")}}}(callback_id, msg);
+				let msg = stringToNewUTF8(message);
+                {{{makeDynCall("vii", "GamePushLib._callback")}}}(callback_id, msg);
                 Module._free(msg);
             }
         },
@@ -145,11 +145,11 @@ let LibraryGamePush = {
             if (callback_id > 0) {
                 GamePushLib.send(callback_id, result);
             } else {
-                return allocate(intArrayFromString(result), ALLOC_NORMAL);
+				return stringToUTF8OnStack(result);
             }
         }
     },
 }
 
 autoAddDeps(LibraryGamePush, '$GamePushLib');
-mergeInto(LibraryManager.library, LibraryGamePush);
+addToLibrary(LibraryGamePush);

@@ -1,7 +1,7 @@
 script: "/example/gui.gui_script"
 fonts {
   name: "system_font"
-  font: "/builtins/fonts/system_font.font"
+  font: "/builtins/fonts/default.font"
 }
 background_color {
   x: 0.0
@@ -73,6 +73,7 @@ nodes {
   custom_type: 0
   enabled: true
   visible: true
+  material: ""
 }
 nodes {
   position {
@@ -138,6 +139,7 @@ nodes {
   custom_type: 0
   enabled: true
   visible: true
+  material: ""
 }
 nodes {
   position {
@@ -237,6 +239,7 @@ nodes {
   custom_type: 0
   enabled: true
   visible: true
+  material: ""
 }
 nodes {
   position {
@@ -303,6 +306,7 @@ nodes {
   custom_type: 0
   enabled: true
   visible: true
+  material: ""
 }
 layers {
   name: "background"
