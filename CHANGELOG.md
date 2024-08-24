@@ -1,5 +1,11 @@
 # Change Log
 
+# [v1.2.1](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.2.1) (2024-08-25)
+
+**Fixed**
+
+- Fix clear memory
+
 # [v1.2.0](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.2.0) (2024-06-07)
 
 **Fixed**

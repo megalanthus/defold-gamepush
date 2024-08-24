@@ -98,7 +98,6 @@ static int CallApi(lua_State* L)
     } else {
         lua_pushstring(L, result);
     }
-    free((void*)result);
     return 1;
 }
 
