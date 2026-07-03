@@ -3,7 +3,7 @@ local callback_ids = require("gamepush.core.callback_ids")
 local M = {}
 
 local function get_storage_file_name()
-    local appname = sys.get_config("project.title")
+    local appname = sys.get_config_string("project.title")
     if sys.get_sys_info().system_name == "Linux" then
         appname = string.format("config/%s", appname)
         return sys.get_save_file(appname, M.file_storage)
@@ -54,9 +54,9 @@ M["resume"] = function()
 end
 
 -- приложение
-M["app.title"] = sys.get_config("project.title")
-M["app.description"] = sys.get_config("gamepush.description")
-M["app.image"] = sys.get_config("gamepush.image")
+M["app.title"] = sys.get_config_string("project.title")
+M["app.description"] = sys.get_config_string("gamepush.description")
+M["app.image"] = sys.get_config_string("gamepush.image")
 M["app.url"] = ""
 
 -- платформа
@@ -264,7 +264,7 @@ M["leaderboard.fetchPlayerRating"] = {
     fields = M["player.fields"],
     player = {
         removed = false,
-        projectId = sys.get_config("gamepush.id"),
+        projectId = sys.get_config_string("gamepush.id"),
         active = true,
         id = 0,
         score = 0,
