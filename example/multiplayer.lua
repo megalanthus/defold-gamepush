@@ -3,21 +3,26 @@ local utils = require("example.utils")
 local arena = require("example.multiplayer_arena")
 
 local CHANNEL_TEMPLATE = "test_channel_template"
+local ROOM_TAG = "mp-arena"
 local channel_id = 66
 local pending_create = false
+local pending_join = false
+local lobby_visible = false
+local lobby_buttons = {}
 
-local HOWTO = [[Как тестировать демо-арену мультиплеера:
+local HOWTO = [[How to test the multiplayer arena:
 
-1. Откройте панель GamePush (https://gamepush.com/panel/) → ваш проект → Каналы → Добавить шаблон.
-2. Тег шаблона (уходит в template:): test_channel_template
-3. Название любое, например MP Arena.
-4. Максимум участников: 8 или больше.
-5. Не включать «Приватный» — иначе второй браузер не войдёт через join, только через инвайт, и connect не сработает.
-6. Включить «Видимый в поиске». Пароль не ставить.
-7. Сохранить шаблон.
-8. В примере: Create room в первом браузере → на арене появится channel #ID → во втором браузере Join room и вставить этот ID.
+1. Open GamePush panel → your project → Channels → Add template.
+2. Template tag (template:): test_channel_template
+3. Any name, e.g. MP Arena.
+4. Max members: 8 or more.
+5. Do not enable Private — the second browser cannot join.
+6. Enable Visible in search. No password.
+7. Save the template.
+8. Browser A: Create room.
+   Browser B: Refresh rooms and click a row.
 
-Тот же тег используется в секции Channels.]]
+The same tag is used in the Channels section.]]
 
 local function is_error_result(result)
     return type(result) == "table" and (result.success == false or result.error)
@@ -26,6 +31,13 @@ end
 local function log_howto()
     utils.to_log(HOWTO)
 end
+
+local is_already_in_channel
+local connect_and_start
+local show_lobby
+local hide_lobby
+local refresh_rooms
+local join_channel
 
 local create_error_hooked = false
 local function hook_create_error()
@@ -43,27 +55,170 @@ local function hook_create_error()
             utils.to_log(HOWTO, "Create room error:", error)
         end
     end
-end
-
-local function prompt_channel_id()
-    if html5 then
-        local current = tostring(channel_id or "")
-        local result = html5.run(string.format("window.prompt('Channel ID','%s')", current))
-        local numeric = tonumber(result)
-        if numeric then
-            channel_id = numeric
+    local prev_error_join = gamepush.channels.callbacks.error_join
+    gamepush.channels.callbacks.error_join = function(error)
+        if pending_join and is_already_in_channel(error) then
+            pending_join = false
+            utils.to_log("Already in channel, connecting #" .. tostring(channel_id))
+            connect_and_start()
+            return
+        end
+        if prev_error_join then
+            prev_error_join(error)
+        end
+        if pending_join then
+            pending_join = false
+            utils.to_log("Join channel error:", error)
         end
     end
 end
 
-local function connect_and_start()
+is_already_in_channel = function(result)
+    local err = result
+    if type(result) == "table" then
+        err = result.error or result.message or result
+    end
+    return tostring(err):find("already_in_channel", 1, true) ~= nil
+end
+
+local function prompt_channel_id()
+    if not html5 then
+        return true
+    end
+    local current = tostring(channel_id or "")
+    local result = html5.run(string.format("window.prompt('Channel ID','%s')", current))
+    if result == nil or result == "" or result == "null" or result == "undefined" then
+        return false
+    end
+    local numeric = tonumber(result)
+    if not numeric then
+        return false
+    end
+    channel_id = numeric
+    return true
+end
+
+local function clear_lobby_buttons()
+    utils.delete_buttons(lobby_buttons)
+    lobby_buttons = {}
+end
+
+local function add_lobby_button(name, x, y, callback)
+    local template = gui.get_node("template/button")
+    local cloned = gui.clone_tree(template)
+    local node = cloned[hash("template/button")]
+    local label = cloned[hash("template/label")]
+    gui.set_text(label, name)
+    gui.set_position(node, vmath.vector3(x, y, 0))
+    gui.set_layer(node, hash("label"))
+    gui.set_visible(node, true)
+    table.insert(lobby_buttons, { name = name, node = node, callback = callback })
+end
+
+hide_lobby = function()
+    lobby_visible = false
+    gui.set_visible(gui.get_node("label_log"), false)
+    clear_lobby_buttons()
+end
+
+connect_and_start = function()
     gamepush.multiplayer.connect({ channelId = channel_id }, function(result)
         utils.to_log("Multiplayer connect:", result, "channel #" .. tostring(channel_id))
         if is_error_result(result) then
             return
         end
+        hide_lobby()
         arena.start(channel_id)
     end)
+end
+
+join_channel = function(id)
+    if gamepush.multiplayer.is_connected() then
+        utils.to_log("Already connected, channel #" .. tostring(channel_id))
+        return
+    end
+    channel_id = id
+    hook_create_error()
+    arena.prepare()
+    pending_join = true
+    gamepush.channels.join({ channelId = channel_id }, function(result)
+        pending_join = false
+        if is_already_in_channel(result) then
+            utils.to_log("Already in channel, connecting #" .. tostring(channel_id))
+            connect_and_start()
+            return
+        end
+        if is_error_result(result) then
+            utils.to_log("Join channel error:", result)
+            return
+        end
+        utils.to_log("Join channel:", result, "channel #" .. tostring(channel_id))
+        connect_and_start()
+    end)
+end
+
+local function room_items(result)
+    if type(result) ~= "table" then
+        return {}
+    end
+    if type(result.items) == "table" then
+        return result.items
+    end
+    if result.id then
+        return { result }
+    end
+    return result
+end
+
+refresh_rooms = function()
+    if not lobby_visible then
+        return
+    end
+    gamepush.channels.fetch_channels({
+        tags = { ROOM_TAG },
+        onlyJoined = false,
+        onlyOwned = false,
+        limit = 50
+    }, function(result)
+        if not lobby_visible then
+            return
+        end
+        clear_lobby_buttons()
+        add_lobby_button("Refresh rooms", 800, 400, refresh_rooms)
+        local y = 360
+        local count = 0
+        for _, channel in pairs(room_items(result)) do
+            if type(channel) == "table" and channel.id then
+                count = count + 1
+                if count <= 8 then
+                    local members = channel.membersCount or channel.members_count or 0
+                    local capacity = channel.capacity or 8
+                    local label = string.format("#%s  %s/%s", tostring(channel.id), tostring(members), tostring(capacity))
+                    local id = channel.id
+                    add_lobby_button(label, 800, y, function()
+                        join_channel(id)
+                    end)
+                    y = y - 40
+                end
+            end
+        end
+        if count == 0 then
+            add_lobby_button("No rooms", 800, y, function() end)
+        end
+    end)
+end
+
+show_lobby = function()
+    if arena.active then
+        return
+    end
+    lobby_visible = true
+    gui.set_visible(gui.get_node("label_log"), true)
+    log_howto()
+    hook_create_error()
+    clear_lobby_buttons()
+    add_lobby_button("Refresh rooms", 800, 400, refresh_rooms)
+    refresh_rooms()
 end
 
 local function create_room()
@@ -72,12 +227,16 @@ local function create_room()
     arena.prepare()
     gamepush.channels.create_channel({
         template = CHANNEL_TEMPLATE,
+        tags = { ROOM_TAG },
         capacity = 8,
-        name = "mp-arena"
+        name = "mp-arena",
+        visible = true,
+        private = false
     }, function(channel)
         pending_create = false
         if type(channel) ~= "table" or not channel.id then
             utils.to_log(HOWTO, "Create room failed. Add template test_channel_template in the GamePush panel.", channel)
+            show_lobby()
             return
         end
         channel_id = channel.id
@@ -87,15 +246,15 @@ local function create_room()
 end
 
 local function join_room()
-    prompt_channel_id()
-    arena.prepare()
-    gamepush.channels.join({ channelId = channel_id }, function(result)
-        utils.to_log("Join channel:", result, "channel #" .. tostring(channel_id))
-        if is_error_result(result) then
-            return
-        end
-        connect_and_start()
-    end)
+    if gamepush.multiplayer.is_connected() then
+        utils.to_log("Already connected, channel #" .. tostring(channel_id))
+        return
+    end
+    if not prompt_channel_id() then
+        utils.to_log("Join cancelled")
+        return
+    end
+    join_channel(channel_id)
 end
 
 local function leave_room()
@@ -104,7 +263,9 @@ local function leave_room()
     gamepush.multiplayer.off_message()
     gamepush.multiplayer.disconnect({ channelId = channel_id }, function(result)
         utils.to_log("Leave room:", result)
+        show_lobby()
     end)
+    show_lobby()
 end
 
 local function id_minus()
@@ -235,7 +396,9 @@ local M = {
     { name = "Create room", callback = create_room },
     { name = "Join room", callback = join_room },
     { name = "Leave room", callback = leave_room },
-    { name = "How to test", callback = log_howto },
+    { name = "How to test", callback = function()
+        show_lobby()
+    end },
     { name = "ID -", callback = id_minus },
     { name = "ID +", callback = id_plus },
     { name = "Connect", callback = connect },
@@ -262,8 +425,22 @@ local M = {
 }
 
 function M.show_howto()
-    hook_create_error()
-    log_howto()
+    show_lobby()
+end
+
+function M.show_lobby()
+    show_lobby()
+end
+
+function M.hide_lobby()
+    hide_lobby()
+end
+
+function M.handle_input(x, y)
+    if not lobby_visible then
+        return
+    end
+    utils.handle_buttons(lobby_buttons, x, y)
 end
 
 gamepush.multiplayer.callbacks.connect = function(result)

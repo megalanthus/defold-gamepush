@@ -654,13 +654,19 @@ M["gamesCollections.fetch"] = function()
 end
 
 -- каналы (для демо-арены в редакторе)
+M.arena_channels = M.arena_channels or {}
 M["channels.createChannel"] = function(parameters)
     local channel = {
-        id = 1001,
+        id = 1000 + #M.arena_channels + 1,
         name = parameters and parameters.name or "mp-arena",
         capacity = parameters and parameters.capacity or 8,
-        template = parameters and parameters.template
+        template = parameters and parameters.template,
+        tags = parameters and parameters.tags or { "mp-arena" },
+        membersCount = 1,
+        visible = true,
+        private = false
     }
+    table.insert(M.arena_channels, channel)
     M.send(callback_ids.channels.createChannel, channel)
     return channel
 end
@@ -670,6 +676,28 @@ M["channels.join"] = function(parameters)
         channelId = parameters and parameters.channelId
     }
     M.send(callback_ids.channels.join, result)
+    return result
+end
+M["channels.fetchChannels"] = function(parameters)
+    local items = {}
+    local tag_filter = parameters and parameters.tags and parameters.tags[1]
+    for _, channel in ipairs(M.arena_channels) do
+        local ok = true
+        if tag_filter then
+            ok = false
+            for _, tag in ipairs(channel.tags or {}) do
+                if tag == tag_filter then
+                    ok = true
+                    break
+                end
+            end
+        end
+        if ok then
+            table.insert(items, channel)
+        end
+    end
+    local result = { items = items, canLoadMore = false }
+    M.send(callback_ids.channels.fetchChannels, result)
     return result
 end
 

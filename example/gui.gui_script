@@ -14,7 +14,14 @@ local function switch_section(section)
     local is_mp = section == multiplayer
     arena.on_section_changed(is_mp)
     if is_mp then
-        multiplayer.show_howto()
+        if arena.active then
+            multiplayer.hide_lobby()
+        else
+            multiplayer.show_lobby()
+        end
+    else
+        multiplayer.hide_lobby()
+        gui.set_visible(gui.get_node("label_log"), true)
     end
 end
 
@@ -80,6 +87,7 @@ function on_input(self, action_id, action)
         return
     end
     if action_id == hash("touch") and action.pressed then
+        multiplayer.handle_input(action.x, action.y)
         utils.handle_buttons(buttons, action.x, action.y)
         utils.handle_buttons(section_buttons, action.x, action.y)
     end
