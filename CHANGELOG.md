@@ -1,5 +1,24 @@
 # Change Log
 
+# [v1.4.0](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.4.0) (2026-08-27)
+
+**Added**
+
+- Multiplayer module: connect/disconnect, player and global state, messages, tick, host events.
+- Playable multiplayer arena in the example: create/join room, movement, shots, apples and boxes.
+- Channel state methods `set_value` / `add_value` and `event:changeValue`.
+- Overlay windows: `windows.show_confirm`.
+- Player `logout`, `enable_auto_sync` and `disable_auto_sync`.
+
+**Changed**
+
+- SDK bootstrap now probes multiple CDNs instead of a single script URL.
+- Updated gui and collection file formats in examples.
+
+**Fixed**
+
+- Deprecated sys.get_config functions have been removed.
+
 # [v1.3.0](https://github.com/megalanthus/defold-gamepush/releases/tag/v1.3.0) (2026-04-24)
 
 **Added**

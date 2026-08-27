@@ -37,6 +37,22 @@ local function login()
     end)
 end
 
+local function logout()
+    gamepush.player.logout(function(result)
+        utils.to_log("Logout player: " .. tostring(result))
+    end)
+end
+
+local function enable_auto_sync()
+    gamepush.player.enable_auto_sync({ interval = 30, storage = "preferred" })
+    utils.to_log("Enable auto sync")
+end
+
+local function disable_auto_sync()
+    gamepush.player.disable_auto_sync({ storage = "preferred" })
+    utils.to_log("Disable auto sync")
+end
+
 local function fetch_fields()
     gamepush.player.fetch_fields(function()
         utils.to_log("Fetch fields player")
@@ -153,6 +169,9 @@ local M = {
     { name = "Sync player with override", callback = sync_override },
     { name = "Load", callback = load },
     { name = "Login", callback = login },
+    { name = "Logout", callback = logout },
+    { name = "Enable auto sync", callback = enable_auto_sync },
+    { name = "Disable auto sync", callback = disable_auto_sync },
     { name = "Fetch fields", callback = fetch_fields },
     { name = "Id", callback = id },
     { name = "Score", callback = score },
@@ -187,6 +206,9 @@ gamepush.player.callbacks.load = function(success)
 end
 gamepush.player.callbacks.login = function(success)
     utils.to_console("login player:", success)
+end
+gamepush.player.callbacks.logout = function(success)
+    utils.to_console("logout player:", success)
 end
 gamepush.player.callbacks.fetch_fields = function(success)
     utils.to_console("fetch fields player", success)

@@ -317,6 +317,20 @@ local function fetch_more_feed_messages()
     end)
 end
 
+local function set_value()
+    local parameters = { channelId = channel_id, key = "gold", value = 123 }
+    gamepush.channels.set_value(parameters, function(result)
+        utils.to_log("Set value:", result)
+    end)
+end
+
+local function add_value()
+    local parameters = { channelId = channel_id, key = "gold", value = 100 }
+    gamepush.channels.add_value(parameters, function(result)
+        utils.to_log("Add value:", result)
+    end)
+end
+
 local M = {
     { name = "Create channel", callback = create_channel },
     { name = "Update channel", callback = update_channel },
@@ -362,7 +376,9 @@ local M = {
     { name = "Fetch feed messages", callback = fetch_feed_messages },
     { name = "Fetch more messages", callback = fetch_more_messages },
     { name = "Fetch more personal messages", callback = fetch_more_personal_messages },
-    { name = "Fetch more feed messages", callback = fetch_more_feed_messages }
+    { name = "Fetch more feed messages", callback = fetch_more_feed_messages },
+    { name = "Set value", callback = set_value },
+    { name = "Add value", callback = add_value }
 }
 
 gamepush.channels.callbacks.create_channel = function(channel)
@@ -633,6 +649,21 @@ gamepush.channels.callbacks.fetch_more_messages = function(result)
 end
 gamepush.channels.callbacks.error_fetch_more_messages = function(error)
     utils.to_console("Error fetch more messages:", error)
+end
+gamepush.channels.callbacks.set_value = function(result)
+    utils.to_console("Set value:", result)
+end
+gamepush.channels.callbacks.error_set_value = function(error)
+    utils.to_console("Error set value:", error)
+end
+gamepush.channels.callbacks.add_value = function(result)
+    utils.to_console("Add value:", result)
+end
+gamepush.channels.callbacks.error_add_value = function(error)
+    utils.to_console("Error add value:", error)
+end
+gamepush.channels.callbacks.event_change_value = function(result)
+    utils.to_console("Event change value:", result)
 end
 
 return M

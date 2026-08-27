@@ -10,7 +10,8 @@ local M = {
         ["load"] = 0xF101,
         ["login"] = 0xF102,
         ["fetchFields"] = 0xF103,
-        ["change"] = 0xF104
+        ["change"] = 0xF104,
+        ["logout"] = 0xF105
     },
     payments = {
         ["purchase"] = 0xF200,
@@ -117,7 +118,12 @@ local M = {
         ["fetchMessages"] = 0xF354,
         ["error:fetchMessages"] = 0xF355,
         ["fetchMoreMessages"] = 0xF356,
-        ["error:fetchMoreMessages"] = 0xF357
+        ["error:fetchMoreMessages"] = 0xF357,
+        ["setValue"] = 0xF358,
+        ["error:setValue"] = 0xF359,
+        ["addValue"] = 0xF35A,
+        ["error:addValue"] = 0xF35B,
+        ["event:changeValue"] = 0xF35C
     },
     events = {
         ["join"] = 0xF400,
@@ -269,6 +275,26 @@ local M = {
         ["error:check"] = 0xFE53,
         ["delete"] = 0xFE54,
         ["error:delete"] = 0xFE55
+    },
+    multiplayer = {
+        ["connect"] = 0xFE60,
+        ["disconnect"] = 0xFE61,
+        ["playerJoined"] = 0xFE62,
+        ["playerLeft"] = 0xFE63,
+        ["becameHost"] = 0xFE64,
+        ["becamePeer"] = 0xFE65,
+        ["hostMigrated"] = 0xFE66,
+        ["playersUpdated"] = 0xFE67,
+        ["globalStateUpdated"] = 0xFE68,
+        ["error:connect"] = 0xFE69,
+        ["error:sendState"] = 0xFE6A,
+        ["error:disconnect"] = 0xFE6B,
+        ["tick"] = 0xFE6C,
+        ["message"] = 0xFE6D,
+        ["playerInitializer"] = 0xFE6E
+    },
+    windows = {
+        ["confirm:close"] = 0xFE80
     }
 }
 

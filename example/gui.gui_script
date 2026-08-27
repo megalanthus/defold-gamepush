@@ -1,6 +1,8 @@
 local gamepush = require("gamepush.gamepush")
 local mock_api = require("gamepush.mock_api")
 local utils = require("example.utils")
+local arena = require("example.multiplayer_arena")
+local multiplayer = require("example.multiplayer")
 
 local position
 local section_buttons = {}
@@ -9,6 +11,11 @@ local function switch_section(section)
     utils.delete_buttons(section_buttons)
     section_buttons = section
     utils.make_buttons(section, position)
+    local is_mp = section == multiplayer
+    arena.on_section_changed(is_mp)
+    if is_mp then
+        multiplayer.show_howto()
+    end
 end
 
 local common = require("example.common")
@@ -21,6 +28,7 @@ local buttons = {
     { name = "Payments", callback = switch_section, section = require("example.payments") },
     { name = "Leaderboard", callback = switch_section, section = require("example.leaderboard") },
     { name = "Channels", callback = switch_section, section = require("example.channels") },
+    { name = "Multiplayer", callback = switch_section, section = multiplayer },
     { name = "Ads", callback = switch_section, section = require("example.ads") },
     { name = "Events", callback = switch_section, section = require("example.events") },
     { name = "Rewards", callback = switch_section, section = require("example.rewards") },
@@ -63,7 +71,14 @@ function init(self)
     msg.post(".", "acquire_input_focus")
 end
 
+function update(self, dt)
+    arena.update(dt)
+end
+
 function on_input(self, action_id, action)
+    if arena.on_input(action_id, action) then
+        return
+    end
     if action_id == hash("touch") and action.pressed then
         utils.handle_buttons(buttons, action.x, action.y)
         utils.handle_buttons(section_buttons, action.x, action.y)

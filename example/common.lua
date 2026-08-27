@@ -80,6 +80,17 @@ local function is_game_play()
     utils.to_log("Is gameplay: " .. tostring(gamepush.is_game_play()))
 end
 
+local function show_confirm()
+    gamepush.windows.show_confirm({
+        title = "Confirm",
+        description = "Are you sure?",
+        textConfirm = "Yes",
+        textCancel = "No"
+    }, function(is_confirmed)
+        utils.to_log("Show confirm:", is_confirmed)
+    end)
+end
+
 local M = {
     { name = "Init", callback = init },
     { name = "Get language", callback = get_language },
@@ -98,7 +109,8 @@ local M = {
     { name = "Is game started", callback = is_game_started },
     { name = "Gameplay start", callback = gameplay_start },
     { name = "Gameplay stop", callback = gameplay_stop },
-    { name = "Is gameplay", callback = is_game_play }
+    { name = "Is gameplay", callback = is_game_play },
+    { name = "Show confirm", callback = show_confirm }
 }
 
 gamepush.callbacks.change_orientation = function(portrait)
@@ -112,6 +124,9 @@ gamepush.callbacks.resume = function()
 end
 gamepush.callbacks.event_connect = function()
     utils.to_console("notification of other windows")
+end
+gamepush.windows.callbacks.confirm_close = function(is_confirmed)
+    utils.to_console("Confirm close:", is_confirmed)
 end
 
 return M

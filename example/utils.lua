@@ -59,16 +59,18 @@ function M.make_buttons(buttons, offset_position)
     local index = 0
     local position = vmath.vector3()
     for _, button_data in pairs(buttons) do
-        local pos = vmath.vector3(index % count_at_width, math.floor(index / count_at_width), 0)
-        position = vmath.mul_per_elem((button_size + padding), pos) + button_size / 2 + padding / 2 + offset_position
-        position.y = height - position.y
-        index = index + 1
-        local button = gui.clone_tree(button_template)
-        gui.set_text(button[label_id], button_data.name)
-        local button_node = button[button_id]
-        button_data.node = button_node
-        gui.set_position(button_data.node, position)
-        gui.set_visible(button_node, true)
+        if type(button_data) == "table" and button_data.name and button_data.callback then
+            local pos = vmath.vector3(index % count_at_width, math.floor(index / count_at_width), 0)
+            position = vmath.mul_per_elem((button_size + padding), pos) + button_size / 2 + padding / 2 + offset_position
+            position.y = height - position.y
+            index = index + 1
+            local button = gui.clone_tree(button_template)
+            gui.set_text(button[label_id], button_data.name)
+            local button_node = button[button_id]
+            button_data.node = button_node
+            gui.set_position(button_data.node, position)
+            gui.set_visible(button_node, true)
+        end
     end
     position.x = offset_position.x
     position.y = height - (position.y - button_size.y - padding.y * 2)
@@ -77,7 +79,7 @@ end
 
 function M.handle_buttons(buttons, x, y)
     for _, button in pairs(buttons) do
-        if gui.pick_node(button.node, x, y) then
+        if type(button) == "table" and button.node and gui.pick_node(button.node, x, y) then
             if button.callback then
                 button.callback(button.section)
             end
@@ -87,7 +89,9 @@ end
 
 function M.delete_buttons(buttons)
     for _, button in pairs(buttons) do
-        gui.delete_node(button.node)
+        if type(button) == "table" and button.node then
+            gui.delete_node(button.node)
+        end
     end
 end
 
