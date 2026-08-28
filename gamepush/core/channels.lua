@@ -391,6 +391,24 @@ function M.fetch_more_feed_messages(parameters, callback)
     core.call_api("channels.fetchMoreFeedMessages", { parameters }, callback)
 end
 
+---Установить значение состояния канала
+---@param parameters table параметры: channelId, key, value
+---@param callback function функция обратного вызова: callback(result)
+function M.set_value(parameters, callback)
+    helpers.check_table_required(parameters)
+    helpers.check_callback(callback)
+    core.call_api("channels.setValue", { parameters }, callback)
+end
+
+---Добавить значение к состоянию канала
+---@param parameters table параметры: channelId, key, value
+---@param callback function функция обратного вызова: callback(result)
+function M.add_value(parameters, callback)
+    helpers.check_table_required(parameters)
+    helpers.check_callback(callback)
+    core.call_api("channels.addValue", { parameters }, callback)
+end
+
 M.callbacks = callbacks.channels
 
 return M

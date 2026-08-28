@@ -87,6 +87,15 @@ M["player.login"] = function()
     M.send(callback_ids.player.login, true)
     return true
 end
+M["player.logout"] = function()
+    M["player.isLoggedIn"] = false
+    M.send(callback_ids.player.logout, true)
+    return true
+end
+M["player.enableAutoSync"] = function()
+end
+M["player.disableAutoSync"] = function()
+end
 M["player.fetchFields"] = function()
     M.send(callback_ids.player.fetchFields)
 end
@@ -642,6 +651,190 @@ end
 M["gamesCollections.fetch"] = function()
     M.send(callback_ids.gamesCollections.fetch, M.games_collections_data)
     return M.games_collections_data
+end
+
+-- каналы (для демо-арены в редакторе)
+M.arena_channels = M.arena_channels or {}
+M["channels.createChannel"] = function(parameters)
+    local channel = {
+        id = 1000 + #M.arena_channels + 1,
+        name = parameters and parameters.name or "mp-arena",
+        capacity = parameters and parameters.capacity or 8,
+        template = parameters and parameters.template,
+        tags = parameters and parameters.tags or { "mp-arena" },
+        membersCount = 1,
+        visible = true,
+        private = false
+    }
+    table.insert(M.arena_channels, channel)
+    M.send(callback_ids.channels.createChannel, channel)
+    return channel
+end
+M["channels.join"] = function(parameters)
+    local result = {
+        success = true,
+        channelId = parameters and parameters.channelId
+    }
+    M.send(callback_ids.channels.join, result)
+    return result
+end
+M["channels.fetchChannels"] = function(parameters)
+    local items = {}
+    local tag_filter = parameters and parameters.tags and parameters.tags[1]
+    for _, channel in ipairs(M.arena_channels) do
+        local ok = true
+        if tag_filter then
+            ok = false
+            for _, tag in ipairs(channel.tags or {}) do
+                if tag == tag_filter then
+                    ok = true
+                    break
+                end
+            end
+        end
+        if ok then
+            table.insert(items, channel)
+        end
+    end
+    local result = { items = items, canLoadMore = false }
+    M.send(callback_ids.channels.fetchChannels, result)
+    return result
+end
+
+-- состояние канала
+M.channel_state = {}
+M["channels.setValue"] = function(parameters)
+    M.channel_state[parameters.key] = parameters.value
+    local result = {
+        success = true,
+        value = parameters.value,
+        channelId = parameters.channelId,
+        key = parameters.key
+    }
+    M.send(callback_ids.channels.setValue, result)
+    M.send(callback_ids.channels["event:changeValue"], {
+        channelId = parameters.channelId,
+        key = parameters.key,
+        value = parameters.value
+    })
+    return result
+end
+M["channels.addValue"] = function(parameters)
+    local current = M.channel_state[parameters.key] or 0
+    local value = current + (parameters.value or 0)
+    M.channel_state[parameters.key] = value
+    local result = {
+        success = true,
+        value = value,
+        channelId = parameters.channelId,
+        key = parameters.key
+    }
+    M.send(callback_ids.channels.addValue, result)
+    M.send(callback_ids.channels["event:changeValue"], {
+        channelId = parameters.channelId,
+        key = parameters.key,
+        value = value
+    })
+    return result
+end
+
+-- окна
+M["windows.showConfirm"] = function()
+    M.send(callback_ids.windows["confirm:close"], true)
+    return true
+end
+
+-- мультиплеер
+M["multiplayer.isConnected"] = false
+M["multiplayer.isHost"] = true
+M.multiplayer_connected_players = {}
+M.multiplayer_my_state = nil
+M.multiplayer_players_state = {}
+M.multiplayer_global_state = nil
+M.multiplayer_message_subscribed = false
+M["multiplayer.connectedPlayers"] = function()
+    return M.multiplayer_connected_players
+end
+M["multiplayer.networkStats"] = function()
+    return { ping = 0, bufferSize = 0, bufferDelay = 0 }
+end
+M["multiplayer.myState"] = function()
+    return M.multiplayer_my_state
+end
+M["multiplayer.playersState"] = function()
+    return M.multiplayer_players_state
+end
+M["multiplayer.globalState"] = function()
+    return M.multiplayer_global_state
+end
+M["multiplayer.connect"] = function(parameters)
+    M["multiplayer.isConnected"] = true
+    M["multiplayer.isHost"] = true
+    M.multiplayer_connected_players = {
+        {
+            playerId = M["player.id"],
+            isHost = true,
+            ping = 0,
+            connectionStability = 1,
+            sessionDuration = 0
+        }
+    }
+    M.send(callback_ids.multiplayer.connect, { success = true })
+    M.send(callback_ids.multiplayer.becameHost)
+    M.send(callback_ids.multiplayer.playerInitializer, {
+        playerId = M["player.id"],
+        playerInfo = M.multiplayer_connected_players[1],
+        requestId = 1
+    })
+    return { success = true }
+end
+M["multiplayer.disconnect"] = function()
+    M["multiplayer.isConnected"] = false
+    M.multiplayer_connected_players = {}
+    M.send(callback_ids.multiplayer.disconnect, { reason = "client" })
+end
+M["multiplayer.definePlayerSchema"] = function()
+end
+M["multiplayer.defineGlobalSchema"] = function()
+end
+M["multiplayer.setPlayerInitializer"] = function()
+end
+M["multiplayer._completePlayerInit"] = function(request_id, state)
+    M.multiplayer_my_state = state
+    M.multiplayer_players_state[tostring(M["player.id"])] = state
+    M.send(callback_ids.multiplayer.playersUpdated, M.multiplayer_players_state)
+end
+M["multiplayer.setPlayerState"] = function(state)
+    M.multiplayer_my_state = state
+    M.multiplayer_players_state[tostring(M["player.id"])] = state
+    M.send(callback_ids.multiplayer.playersUpdated, M.multiplayer_players_state)
+end
+M["multiplayer.setGlobalState"] = function(state)
+    M.multiplayer_global_state = state
+    M.send(callback_ids.multiplayer.globalStateUpdated, state)
+end
+M["multiplayer.setMode"] = function()
+end
+M["multiplayer.onTick"] = function()
+end
+M["multiplayer.offTick"] = function()
+end
+M["multiplayer.onMessage"] = function()
+    M.multiplayer_message_subscribed = true
+end
+M["multiplayer.offMessage"] = function()
+    M.multiplayer_message_subscribed = false
+end
+M["multiplayer.sendMessage"] = function(event_name, data, target_or_options)
+    local echo = type(target_or_options) == "table" and target_or_options.echo
+    if echo and M.multiplayer_message_subscribed then
+        M.send(callback_ids.multiplayer.message, {
+            eventName = event_name,
+            senderId = M["player.id"],
+            data = data,
+            timestamp = 0
+        })
+    end
 end
 
 return M

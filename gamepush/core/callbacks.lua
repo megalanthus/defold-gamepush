@@ -10,7 +10,8 @@ local M = {
         load = nil,
         login = nil,
         fetch_fields = nil,
-        change = nil
+        change = nil,
+        logout = nil
     },
     payments = {
         purchase = nil,
@@ -117,7 +118,12 @@ local M = {
         fetch_messages = nil,
         error_fetch_messages = nil,
         fetch_more_messages = nil,
-        error_fetch_more_messages = nil
+        error_fetch_more_messages = nil,
+        set_value = nil,
+        error_set_value = nil,
+        add_value = nil,
+        error_add_value = nil,
+        event_change_value = nil
     },
     events = {
         join = nil,
@@ -269,6 +275,26 @@ local M = {
         error_check = nil,
         delete = nil,
         error_delete = nil
+    },
+    multiplayer = {
+        connect = nil,
+        disconnect = nil,
+        player_joined = nil,
+        player_left = nil,
+        became_host = nil,
+        became_peer = nil,
+        host_migrated = nil,
+        players_updated = nil,
+        global_state_updated = nil,
+        error_connect = nil,
+        error_send_state = nil,
+        error_disconnect = nil,
+        tick = nil,
+        message = nil,
+        player_initializer = nil
+    },
+    windows = {
+        confirm_close = nil
     }
 }
 

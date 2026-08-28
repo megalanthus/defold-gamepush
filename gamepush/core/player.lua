@@ -44,6 +44,27 @@ function M.login(callback)
     core.call_api("player.login", nil, callback)
 end
 
+---Выход
+---@param callback function функция обратного вызова по результату выхода: callback(result)
+function M.logout(callback)
+    helpers.check_callback(callback)
+    core.call_api("player.logout", nil, callback)
+end
+
+---Включить автоматическую синхронизацию
+---@param parameters table параметры: interval, storage
+function M.enable_auto_sync(parameters)
+    helpers.check_table_required(parameters)
+    core.call_api("player.enableAutoSync", { parameters })
+end
+
+---Выключить автоматическую синхронизацию
+---@param parameters table параметры: storage
+function M.disable_auto_sync(parameters)
+    helpers.check_table_required(parameters)
+    core.call_api("player.disableAutoSync", { parameters })
+end
+
 ---Получить список полей игрока
 ---@param callback function функция обратного вызова по результату получения полей игрока: callback()
 function M.fetch_fields(callback)

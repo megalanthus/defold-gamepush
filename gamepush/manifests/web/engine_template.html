@@ -20,8 +20,6 @@
     {{#gamepush.image}}
     <meta name="og:image" content="{{gamepush.image}}">
     {{/gamepush.image}}
-    <script async
-            src="https://gs.eponesh.com/sdk/game-score.js?projectId={{gamepush.id}}&publicToken={{gamepush.token}}&callback=onGPInit"></script>
     <script type="text/javascript">
         window.onGPInit = (gp) => {
             function init(gp, result) {
@@ -41,6 +39,7 @@
                     init(gp, false);
                 });
         }
+        ((s,c,o,r,e)=>{var f=0,t={},p=0,m=r.length,w=[],j=u=>{if(f||t[u])return;f=1;t[u]=1;var d=c.createElement(o);d.async=1;d.src=u+e;d.onerror=()=>{f=0;n()};var a=c.getElementsByTagName(o)[0];a.parentNode.insertBefore(d,a)},n=()=>{for(var k=0;k<w.length;k++)if(!t[w[k]])return j(w[k])},q=()=>{++p>=m&&!f&&n()};r.forEach(u=>s.fetch(u,{method:"HEAD"}).then(x=>{x&&x.ok?(w.push(u),j(u)):q()}).catch(q));s.setTimeout(()=>{f||n()},5000)})(window,document,"script",atob("aHR0cHM6Ly9ncy5lcG9uZXNoLmNvbS9zZGsvZ2FtZS1zY29yZS5qcyxodHRwczovL3MzLmdhbWVwdXNoLmNvbS9maWxlcy9ncy9zZGsvZ2FtZS1zY29yZS5qcyxodHRwczovL3MzLWV1LmdhbWVwdXNoLmNvbS9zZGsvZ2FtZS1zY29yZS5qcyxodHRwczovL2dhbWVwdXNoLmNvbS9zZGsvZ2FtZS1zY29yZS5qcw==").split(","),"?projectId={{gamepush.id}}&publicToken={{gamepush.token}}&callback=onGPInit");
     </script>
 </head>
 </html>

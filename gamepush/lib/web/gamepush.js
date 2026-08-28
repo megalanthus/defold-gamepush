@@ -5,8 +5,19 @@ let LibraryGamePush = {
         _callback: null,
         _gp: null,
         _data: {},
+        _callbackIds: null,
+        _playerInitRequestId: 0,
+        _pendingPlayerInits: {},
+        _tickHandler: null,
+        _messageHandler: null,
+        _specialEvents: {
+            tick: true,
+            message: true,
+            playerInitializer: true
+        },
 
         init_callbacks: function (gp, callback_ids) {
+            GamePushLib._callbackIds = callback_ids;
             for (let callback_group in callback_ids) {
                 let base_object = callback_group === "common" ? gp : gp[callback_group];
                 if (!base_object || typeof base_object.on !== "function") {
@@ -14,13 +25,28 @@ let LibraryGamePush = {
                 }
                 let group_callback_ids = callback_ids[callback_group];
                 for (let event_name in group_callback_ids) {
+                    if (GamePushLib._specialEvents[event_name]) {
+                        continue;
+                    }
                     base_object.on(event_name, (result) => GamePushLib.send(group_callback_ids[event_name], result));
                 }
             }
         },
 
+        serialize: function (value) {
+            if (value instanceof Map) {
+                let obj = {};
+                value.forEach(function (item, key) {
+                    obj[key] = item;
+                });
+                return obj;
+            }
+            return value;
+        },
+
         send: function (callback_id, data) {
             if (GamePushLib._callback && callback_id > 0) {
+                data = GamePushLib.serialize(data);
                 let message = data === undefined || data === null ? "" :
                     typeof (data) === "object" ? JSON.stringify({object: data}) :
                         JSON.stringify({value: data});
@@ -30,9 +56,85 @@ let LibraryGamePush = {
             }
         },
 
+        multiplayer_ids: function () {
+            return GamePushLib._callbackIds && GamePushLib._callbackIds.multiplayer;
+        },
+
+        handle_special_method: function (method_name, array_parameters) {
+            let gp = GamePushLib._gp;
+            if (!gp || !gp.multiplayer) {
+                return null;
+            }
+            let ids = GamePushLib.multiplayer_ids();
+            try {
+            switch (method_name) {
+                case "multiplayer.onTick":
+                    if (!GamePushLib._tickHandler) {
+                        GamePushLib._tickHandler = function (delta) {
+                            GamePushLib.send(ids && ids.tick, delta);
+                        };
+                        gp.multiplayer.onTick(GamePushLib._tickHandler);
+                    }
+                    return JSON.stringify({value: true});
+                case "multiplayer.offTick":
+                    if (GamePushLib._tickHandler) {
+                        gp.multiplayer.offTick(GamePushLib._tickHandler);
+                        GamePushLib._tickHandler = null;
+                    }
+                    return JSON.stringify({value: true});
+                case "multiplayer.onMessage":
+                    if (!GamePushLib._messageHandler) {
+                        GamePushLib._messageHandler = function (payload) {
+                            GamePushLib.send(ids && ids.message, payload);
+                        };
+                        gp.multiplayer.onMessage(GamePushLib._messageHandler);
+                    }
+                    return JSON.stringify({value: true});
+                case "multiplayer.offMessage":
+                    if (GamePushLib._messageHandler) {
+                        gp.multiplayer.offMessage(GamePushLib._messageHandler);
+                        GamePushLib._messageHandler = null;
+                    }
+                    return JSON.stringify({value: true});
+                case "multiplayer.setPlayerInitializer":
+                    gp.multiplayer.setPlayerInitializer(function (playerId, playerInfo) {
+                        return new Promise(function (resolve) {
+                            let requestId = ++GamePushLib._playerInitRequestId;
+                            GamePushLib._pendingPlayerInits[requestId] = resolve;
+                            GamePushLib.send(ids && ids.playerInitializer, {
+                                playerId: playerId,
+                                playerInfo: playerInfo,
+                                requestId: requestId
+                            });
+                        });
+                    });
+                    return JSON.stringify({value: true});
+                case "multiplayer._completePlayerInit": {
+                    let requestId = array_parameters[0];
+                    let state = array_parameters[1];
+                    let resolveInit = GamePushLib._pendingPlayerInits[requestId];
+                    if (resolveInit) {
+                        delete GamePushLib._pendingPlayerInits[requestId];
+                        resolveInit(state);
+                    }
+                    return JSON.stringify({value: true});
+                }
+                default:
+                    return null;
+            }
+            } catch (error) {
+                return JSON.stringify({error: error});
+            }
+        },
+
         call_api: function (method, parameters, callback_id, native_api) {
             let method_name = UTF8ToString(method);
             let string_parameters = UTF8ToString(parameters);
+            let array_parameters = JSON.parse(string_parameters);
+            let special_result = GamePushLib.handle_special_method(method_name, array_parameters);
+            if (special_result) {
+                return special_result;
+            }
             let save_as_var = null;
             let saved_object = null;
             if (native_api) {
@@ -58,7 +160,7 @@ let LibraryGamePush = {
             let last_index = path.length - 1
             for (let index = 0; index < path.length; index++) {
                 let item = path[index];
-                if (parent_object[item]) {
+                if (item in parent_object) {
                     if (index === last_index) {
                         result_object = parent_object[item];
                     } else {
@@ -69,7 +171,6 @@ let LibraryGamePush = {
                     return JSON.stringify({error: error});
                 }
             }
-            let array_parameters = JSON.parse(string_parameters);
             switch (typeof result_object) {
                 case "string":
                 case "number":
@@ -77,7 +178,7 @@ let LibraryGamePush = {
                     return JSON.stringify({value: result_object});
                 case "object":
                     try {
-                        return JSON.stringify({object: JSON.stringify(result_object)});
+                        return JSON.stringify({object: JSON.stringify(GamePushLib.serialize(result_object))});
                     } catch (error) {
                         return JSON.stringify({error: error});
                     }
@@ -92,7 +193,7 @@ let LibraryGamePush = {
                                 case "boolean":
                                     return JSON.stringify({value: result});
                                 case "object":
-                                    return JSON.stringify({object: result});
+                                    return JSON.stringify({object: GamePushLib.serialize(result)});
                                 case "undefined":
                                     return;
                             }
@@ -130,6 +231,7 @@ let LibraryGamePush = {
 
     GamePush_Init: function (parameters, callback_id) {
         let callback_ids = JSON.parse(UTF8ToString(parameters));
+        GamePushLib._callbackIds = callback_ids;
         GamePushLib.init = function (gp, initResult) {
             GamePushLib._gp = gp;
             if (initResult === true) {

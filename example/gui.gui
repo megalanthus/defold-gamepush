@@ -28,14 +28,20 @@ nodes {
   }
   layer: "label"
   inherit_alpha: true
+  line_break: true
 }
 nodes {
   position {
-    y: 120.0
+    x: 640.0
+    y: 140.0
   }
   size {
-    x: 640.0
-    y: 120.0
+    x: 1280.0
+    y: 280.0
+  }
+  scale {
+    x: 0.5
+    y: 0.5
   }
   type: TYPE_TEXT
   font: "system_font"
@@ -52,6 +58,28 @@ nodes {
     z: 1.0
   }
   layer: "label"
+  inherit_alpha: true
+  line_break: true
+}
+nodes {
+  position {
+    x: 640.0
+    y: 140.0
+  }
+  size {
+    x: 640.0
+    y: 560.0
+  }
+  color {
+    x: 0.12
+    y: 0.14
+    z: 0.18
+  }
+  type: TYPE_BOX
+  id: "arena"
+  pivot: PIVOT_SW
+  visible: false
+  layer: "arena"
   inherit_alpha: true
 }
 nodes {
@@ -77,6 +105,9 @@ layers {
 }
 layers {
   name: "label"
+}
+layers {
+  name: "arena"
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT
